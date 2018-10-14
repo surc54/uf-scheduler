@@ -1,0 +1,25 @@
+@import "./reset";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,700|Oswald|Roboto');
+
+$primary: #c62828;
+$primary-light: #ff5f52;
+$primary-dark: #8e0000;
+
+$secondary: #e64a19;
+$secondary-light: #ff7d47;
+$secondary-dark: #ac0800;
+
+* {
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+    transition: all 0.2s;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    color: #707070;
+    font-family: "Open Sans", sans-serif;
+}
