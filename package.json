@@ -1,0 +1,22 @@
+{
+  "name": "schedule-template",
+  "version": "1.0.0",
+  "description": "Create a sample schedule for UF",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/surc54/schedule-template.git"
+  },
+  "author": "Adithya Haridas",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/surc54/schedule-template/issues"
+  },
+  "homepage": "https://github.com/surc54/schedule-template#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
