@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Create a sample schedule for UF",
   "main": "app.js",
+  "private": true,
   "scripts": {
     "start": "nodemon app",
     "test": "echo \"Error: no test specified\" && exit 1"
