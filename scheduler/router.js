@@ -12,4 +12,8 @@ router.use("/styles", express.static(path.join(__dirname, "styles"), {
     etag: false
 }));
 
+router.use("/dist", express.static(path.join(__dirname, "dist"), {
+    etag: false
+}));
+
 module.exports = router;
