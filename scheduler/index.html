@@ -3,10 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/schedule/styles">
+    <link rel="stylesheet" href="/schedule/styles/main.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <title>Schedule Template</title>
 </head>
 <body>
-    Test
+    
+    <main>
+        <div id="schedule">
+            <section class="header">
+                <h1>Schedule</h1>
+                <div class="commands">
+                    <a href="#" id="schedule-more" title="More">
+                        <i class="material-icons">more_vert</i>
+                    </a>
+                    <a href="#" id="courses-expand" title="Expand course list">
+                        <i class="material-icons">chevron_left</i>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <div id="courses">
+            <section class="header">
+                <h1>Courses</h1>
+                <div class="commands">
+                    <a href="#" id="courses-add" title="Add">
+                        <i class="material-icons">add</i>
+                    </a>
+                    <a href="#" id="courses-collapse" title="Collapse">
+                        <i class="material-icons">chevron_right</i>
+                    </a>
+                </div>
+            </section>
+
+            <section id="courseList">
+                <div class="course">
+                    <div class="course-color" title="Change color"></div>
+                    <div class="course-information">
+                        <h1>Programming Fundamentals 1</h1>
+                        <p>COP3502 - Class 11190</p>
+                        <a href="#" class="more-details">
+                            View details
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- <div class="course-drag">
+        COP3502
+    </div> -->
+
+
+    <script>
+        let courseDrag = null;
+        let main;
+        let courses;
+        let courseList;
+        $(() => { 
+            main = $("main");
+            courses = $("div#courses");
+            courseList = courses.find("section#courseList");
+
+            $("a#courses-expand").hide();
+            resizeCourseList();
+
+            $("#courses-expand").on("click", (e) => {
+                e.preventDefault();
+                expandCourseSidebar();
+            })
+
+            $("#courses-collapse").on("click", (e) => {
+                e.preventDefault();
+                collapseCourseSidebar();
+            })
+
+            $(window).on("resize", (e) => {
+                resizeCourseList();
+            });
+
+            courseList.find(".course").on("mousedown", (e) => {
+                e.preventDefault();
+                courseDrag = {
+                    elem: $(e.currentTarget),
+                    activated: false,
+                    clickOrigin: {
+                        x: e.clientX,
+                        y: e.clientY
+                    }
+                };
+            });
+
+            $(window).on("mouseup", (e) => {
+                if (courseDrag != null) {
+                    if (courseDrag.activated) {
+                        e.preventDefault();
+                        courseDrag.dragger.removeClass("active");
+                        courseDrag.dragger.remove();
+                    }
+                    courseDrag = null;
+                }
+            });
+
+            $(window).on("mousemove", (e) => {
+                if (courseDrag != null) {
+                    let x = e.clientX;
+                    let y = e.clientY;
+
+                    if (courseDrag.activated) {
+                        e.preventDefault();
+                        courseDrag.dragger.css({
+                            left: (e.clientX - 0.5*courseDrag.dragger.width()) + "px",
+                            top: (e.clientY - 0.5*courseDrag.dragger.height()) + "px"
+                        });
+                        setTimeout(() => {
+                            if (courseDrag != null && courseDrag.activated) {
+                                courseDrag.dragger.addClass("active");
+                            }
+                        }, 100);
+                    } else {
+                        let dist = distance(x, y, courseDrag.clickOrigin.x, courseDrag.clickOrigin.y);
+                        if (dist > 100) {
+                            let cd = document.createElement("div");
+                            cd = $(cd);
+                            cd.addClass("course-drag");
+                            // INSERT CLASS CODE!!
+                            cd.html("COP3503");
+                            
+                            $("body").append(cd);
+                            
+                            cd.css({
+                                left: (e.clientX - 0.5*cd.width()) + "px",
+                                top: (e.clientY - 0.5*cd.height()) + "px"
+                            });
+
+                            courseDrag.activated = true;
+                            courseDrag.dragger = cd;
+                        }
+                    }
+                }
+            });
+        });
+
+        
+
+        let sidebarAnimationMaxIndex = 50;
+        function expandCourseSidebar() {
+            $("a#courses-expand").hide();
+            let i = 0;
+            let interval = setInterval(() => {
+                let percent = easeOutQuad(i++/sidebarAnimationMaxIndex);
+                let maxValue = 50;
+                if (percent >= 1) {
+                    main.css("grid-template-columns", "");
+                    main.removeClass("course-collapsed");
+                    resizeCourseList();
+                    clearInterval(interval);
+                }
+                main.css("grid-template-columns", "auto " + (maxValue * percent) + "rem");
+            }, 1);
+        }
+
+        function collapseCourseSidebar() {
+            $("a#courses-expand").show();
+            let i = sidebarAnimationMaxIndex;
+            let interval = setInterval(() => {
+                let percent = easeOutQuad(i--/sidebarAnimationMaxIndex);
+                let maxValue = 50;
+                if (percent <= 0) {
+                    main.css("grid-template-columns", "");
+                    main.addClass("course-collapsed");
+                    clearInterval(interval);
+                }
+                main.css("grid-template-columns", "auto " + (maxValue * percent) + "rem");
+            }, 1);
+        }
+
+        function resizeCourseList() {
+            $("section#courseList").css({
+                height: "calc(100vh - " + courses.find("section.header").outerHeight() + "px)"
+            });
+        }
+
+
+        function distance(x1, y1, x2, y2) {
+            return Math.sqrt(Math.pow(x2-x1, 2) + Math.pow(y2-y1, 2));
+        }
+        function easeOutQuart(t) {
+            return 1-(--t)*t*t*t;
+        }
+        function easeOutQuad(t) {
+            return t*(2-t);
+        }
+        function easeInQuad(t) {
+            return t*t
+        }
+
+    </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 @import "./reset";
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,700|Oswald|Roboto');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,700|Oswald|Roboto|Material+Icons');
 
 $primary: #c62828;
 $primary-light: #ff5f52;
@@ -17,6 +17,7 @@ $secondary-dark: #ac0800;
 
 html {
     font-size: 62.5%;
+    transition: font-size 0;
 }
 
 body {

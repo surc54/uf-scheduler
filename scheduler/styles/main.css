@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,700|Oswald|Roboto");
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:300,400,700|Oswald|Roboto|Material+Icons");
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -63,6 +63,8 @@ table {
 
 html {
   font-size: 62.5%;
+  -webkit-transition: font-size 0;
+  transition: font-size 0;
 }
 
 body {
@@ -76,5 +78,174 @@ html {
 
 body {
   font-size: 1.6rem;
+}
+
+main {
+  display: grid;
+  grid-template-columns: auto 50rem;
+  grid-template-rows: auto;
+  grid-template-areas: "schedule courses";
+  height: 100vh;
+}
+
+main.course-collapsed {
+  grid-template-columns: auto 0;
+}
+
+main > div#schedule {
+  background: white;
+  grid-area: schedule;
+}
+
+main > div#courses {
+  background: white;
+  grid-area: courses;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23);
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23);
+}
+
+section.header {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+  padding: 30px;
+}
+
+section.header > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4.2rem;
+  font-weight: 700;
+}
+
+section.header > div.commands {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row nowrap;
+}
+
+section.header > div.commands > a {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+  color: inherit;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+section.header > div.commands > a:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+section#courseList {
+  padding: 0 30px;
+  overflow-y: auto;
+  height: calc(100vh - 110px);
+}
+
+section#courseList > div.course {
+  background: #F5F5F5;
+  height: 13rem;
+  margin: 25px 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row nowrap;
+  -webkit-box-align: stretch;
+          align-items: stretch;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+section#courseList > div.course div.course-color {
+  background: #EB3636;
+  width: 30px;
+  cursor: pointer;
+}
+
+section#courseList > div.course div.course-information {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+          justify-content: center;
+  margin-left: 25px;
+}
+
+section#courseList > div.course div.course-information > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 350px;
+}
+
+section#courseList > div.course div.course-information > p {
+  margin-top: 5px;
+}
+
+section#courseList > div.course div.course-information > a {
+  margin-top: 10px;
+  color: #3c87f8;
+  text-decoration: none;
+}
+
+div.course-drag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 50px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+          align-items: center;
+  border-radius: 10px;
+  cursor: default;
+  cursor: -webkit-grab;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: white;
+  background: #EB3636;
+  -webkit-transition: opacity 0.2s, -webkit-box-shadow 0.2s;
+  transition: opacity 0.2s, -webkit-box-shadow 0.2s;
+  transition: box-shadow 0.2s, opacity 0.2s;
+  transition: box-shadow 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+}
+
+div.course-drag.active {
+  -webkit-box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
 }
 /*# sourceMappingURL=main.css.map */

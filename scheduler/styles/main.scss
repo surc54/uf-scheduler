@@ -7,3 +7,154 @@ html {
 body {
     font-size: 1.6rem;
 }
+
+main {
+    display: grid;
+    grid-template-columns: auto 50rem;
+    grid-template-rows: auto;
+    grid-template-areas: "schedule courses";
+
+    height: 100vh;
+
+    &.course-collapsed {
+        grid-template-columns: auto 0;
+    }
+
+
+    > div#schedule {
+        background: white;
+        grid-area: schedule;
+    }
+
+    > div#courses {
+        background: white;
+        grid-area: courses;
+
+        // padding: 30px;
+        overflow: hidden;
+        
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.23);
+
+        
+    }
+}
+
+section.header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+
+    // background: #F0F0F0;
+    padding: 30px;
+    > h1 {
+        font-family: "Montserrat", sans-serif;
+        font-size: 4.2rem;
+        font-weight: 700;
+    }
+    > div.commands {
+        display: flex;
+        flex-flow: row nowrap;
+        
+        > a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: inherit;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-left: 5px;
+            text-decoration: none;
+
+            &:hover {
+                background: rgba(0,0,0,0.1);
+            }
+        }
+    }
+}
+
+section#courseList {
+    padding: 0 30px;
+    overflow-y: auto;
+    height: calc(100vh - 110px);
+
+
+    > div.course {
+        background: #F5F5F5;
+        height: 13rem;
+        margin: 25px 0;
+
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: stretch;
+
+        user-select: none;
+        cursor: default;
+
+        overflow: hidden;
+
+
+        div.course-color {
+            background: #EB3636;
+            width: 30px;
+            cursor: pointer;
+        }
+        div.course-information {
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            margin-left: 25px;
+
+            > h1 {
+                font-family: "Montserrat", sans-serif;
+                font-size: 20px;
+                font-weight: 700;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                width: 350px;
+            }
+
+            > p {
+                margin-top: 5px;
+            }
+
+            > a {
+                margin-top: 10px;
+                color: rgb(60, 135, 248);
+                text-decoration: none;
+            }
+        }
+
+
+    }
+}
+
+div.course-drag {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 200px;
+    height: 50px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    cursor: default;
+    cursor: -webkit-grab;
+
+    user-select: none;
+
+    color: white;
+    background: #EB3636;
+
+    transition: box-shadow 0.2s, opacity 0.2s;
+
+    &.active {
+        box-shadow: 5px 5px 10px 0 rgba(0,0,0,0.5);
+        opacity: 0.5;
+    }
+}
