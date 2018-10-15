@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "./index.html"));
 });
 
-router.get("/styles", (req, res) => {
-    res.sendFile(path.join(__dirname, "./styles/main.css"));
-});
+router.use("/styles", express.static(path.join(__dirname, "styles"), {
+    etag: false
+}));
 
 module.exports = router;
