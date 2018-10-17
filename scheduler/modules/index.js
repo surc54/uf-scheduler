@@ -1,5 +1,6 @@
 import $ from "jquery";
 import CourseSidebar from "./CourseSidebar";
+import {FullScreenBackdrop} from "./FullScreenBackdrop";
 
 let main,
     courses,
@@ -74,6 +75,15 @@ $(() => {
             }
         }
     });
+
+    setTimeout(() => {
+        FullScreenBackdrop.listeners.click = (e, elem) => {
+            e.preventDefault();
+            FullScreenBackdrop.removeBackdrop();
+        };
+        FullScreenBackdrop.createBackdrop(10, "body");
+    }, 500);
+
 });
 
 

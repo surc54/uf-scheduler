@@ -1,9 +1,7 @@
 import $ from "jquery";
 
 
-
-
-let FullScreenBackdrop = {
+export let FullScreenBackdrop = {
     init: () => {
 
     },
@@ -14,27 +12,40 @@ let FullScreenBackdrop = {
         elem.addClass("fs-backdrop");
         elem.css("z-index", z);
 
+        elem.css("opacity", 0);
         $(appendTo).append(elem);
+        setTimeout(() => {
+            elem.css("opacity", 1);
+        });
 
-        
-
+        addListeners(elem);
+        console.log("Backdrop created.");
         return elem[0];
     },
 
     removeBackdrop: () => {
         let bd = $("div.fs-backdrop");
         bd.off();
-        bd.fadeOut(200);
+        bd.css("opacity", 0);
         setTimeout(() => {
             bd.remove();
-        }, 200);
+        }, 500);
     },
 
     listeners: {
-        click: (e) => {},
-        hover: (e) => {}
+        click: (e, elem) => {},
+        hover: (e, elem) => {}
     }
 };
 
-module.exports = FullScreenBackdrop;
+
+function addListeners(elem) {
+    elem.on("click", (e) => {
+        FullScreenBackdrop.listeners.click(e, elem);
+    });
+    elem.on("hover", (e) => {
+        FullScreenBackdrop.listeners.hover(e, elem);
+    });
+}
+
 
