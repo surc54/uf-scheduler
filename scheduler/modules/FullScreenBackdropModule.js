@@ -1,7 +1,7 @@
 import $ from "jquery";
 
 
-export let FullScreenBackdrop = {
+export let FullScreenBackdropModule = {
     init: () => {
 
     },
@@ -19,7 +19,6 @@ export let FullScreenBackdrop = {
         });
 
         addListeners(elem);
-        console.log("Backdrop created.");
         return elem[0];
     },
 
@@ -41,10 +40,10 @@ export let FullScreenBackdrop = {
 
 function addListeners(elem) {
     elem.on("click", (e) => {
-        FullScreenBackdrop.listeners.click(e, elem);
+        FullScreenBackdropModule.listeners.click(e, elem);
     });
     elem.on("hover", (e) => {
-        FullScreenBackdrop.listeners.hover(e, elem);
+        FullScreenBackdropModule.listeners.hover(e, elem);
     });
 }
 

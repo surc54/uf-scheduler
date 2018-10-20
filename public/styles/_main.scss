@@ -24,3 +24,21 @@ body {
     color: #707070;
     font-family: "Open Sans", sans-serif;
 }
+
+button.s_btn {
+    background: transparent;
+    border: none;
+    padding: 10px 15px;
+    color: #707070;
+    font-weight: 700;
+    outline: none;
+    border-radius: 5px;
+
+    &:hover {
+        background: rgba(170, 170, 170, 0.2);
+    }
+
+    &:active {
+        background: rgba(170, 170, 170, 0.5);
+    }
+}

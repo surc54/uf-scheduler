@@ -1,5 +1,8 @@
-import $ from "jquery";
+/**
+ * Modal that lets user change color of selected course.
+*/
 
+import $ from "jquery";
 
 
 

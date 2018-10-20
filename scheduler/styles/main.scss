@@ -1,5 +1,6 @@
 @import "../../public/styles/main";
 @import "./fsbackdrop";
+@import "./modal";
 
 html {
     background: #F0F0F0;
@@ -9,7 +10,7 @@ body {
     font-size: 1.6rem;
 }
 
-main {
+body > main {
     display: grid;
     grid-template-columns: auto 50rem;
     grid-template-rows: auto;

@@ -1,6 +1,8 @@
 import $ from "jquery";
-import CourseSidebar from "./CourseSidebar";
-import {FullScreenBackdrop} from "./FullScreenBackdrop";
+import CourseSidebarModule from "./CourseSidebarModule";
+import { FullScreenBackdropModule } from "./FullScreenBackdropModule";
+import NewCourseModule from "./NewCourseModule";
+import Test from "./Test";
 
 let main,
     courses,
@@ -8,12 +10,12 @@ let main,
     courseDrag;
     
 $(() => {
-    main = $("main");
+    main = $("body > main");
     courses = $("div#courses");
     courseList = courses.find("section#courseList");
     courseDrag = null;
 
-    CourseSidebar.init(main);
+    CourseSidebarModule.init(main);
     courseList.find(".course").on("mousedown", (e) => {
         e.preventDefault();
         courseDrag = {
@@ -74,15 +76,25 @@ $(() => {
                 }
             }
         }
+
     });
 
-    setTimeout(() => {
-        FullScreenBackdrop.listeners.click = (e, elem) => {
-            e.preventDefault();
-            FullScreenBackdrop.removeBackdrop();
-        };
-        FullScreenBackdrop.createBackdrop(10, "body");
-    }, 500);
+    // Test for FullScreenBackdrop
+    // setTimeout(() => {
+    //     FullScreenBackdropModule.listeners.click = (e, elem) => {
+    //         e.preventDefault();
+    //         FullScreenBackdropModule.removeBackdrop();
+    //     };
+    //     FullScreenBackdropModule.createBackdrop(10, "body");
+    // }, 500);
+
+    // Test for NewCourseModule
+    NewCourseModule.init();
+
+
+    
+    // Calling test.
+    Test();
 
 });
 

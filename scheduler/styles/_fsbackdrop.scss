@@ -2,9 +2,15 @@ div.fs-backdrop {
     position: fixed;
     top: 0;
     left: 0;
+    //background: white; // to test shadows
     background: rgba(0, 0, 0, 0.7);
     height: 100%;
     width: 100%;
 
     transition: opacity 0.5s;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
 }

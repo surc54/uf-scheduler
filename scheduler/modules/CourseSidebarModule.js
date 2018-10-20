@@ -3,20 +3,20 @@ let $ = require("jquery");
 let EasingFunctions = require("../../modules/easing");
 let main;
 
-let CourseSidebar = {
+let CourseSidebarModule = {
     init: (mainDomElement) => {
         main = mainDomElement;
-        CourseSidebar.resizeCourseList();
-        CourseSidebar.expand(1); // quick expand.
+        CourseSidebarModule.resizeCourseList();
+        CourseSidebarModule.expand(1); // quick expand.
         
         $("[s-action='expand-courses']").on("click", (e) => {
             e.preventDefault();
-            CourseSidebar.expand();
+            CourseSidebarModule.expand();
         });
 
         $("[s-action='collapse-courses']").on("click", (e) => {
             e.preventDefault();
-            CourseSidebar.collapse();
+            CourseSidebarModule.collapse();
         });
         
         // Disabled because it might not be needed.
@@ -38,7 +38,7 @@ let CourseSidebar = {
             if (percent >= 1) {
                 main.css("grid-template-columns", "");
                 main.removeClass("course-collapsed");
-                CourseSidebar.resizeCourseList();
+                CourseSidebarModule.resizeCourseList();
                 clearInterval(interval);
             }
             main.css("grid-template-columns", "auto " + (maxValue * percent) + "rem");
@@ -79,4 +79,4 @@ let CourseSidebar = {
     }
 };
 
-module.exports = CourseSidebar;
+module.exports = CourseSidebarModule;
