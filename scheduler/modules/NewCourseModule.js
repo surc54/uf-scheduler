@@ -7,12 +7,15 @@
  */
 
 import { Modal, FooterButton, FooterType, ContentType } from "./ModalModule";
+import SampleDataRetriever from "../../modules/SampleDataRetriever";
 
 
 let NewCourseModule = {
 
     init: () => {
-        // NewCourseModule.showSearchModal();
+        SampleDataRetriever.search({
+            semesterCode: 32
+        })
     },
 
     /**
@@ -34,25 +37,7 @@ let NewCourseModule = {
         });
 
         searchModal.setFooter({
-            type: FooterType.NONE,
-            data: [ // Leftover from first modal
-                new FooterButton({
-                    content: "Search",
-                    template: "default",
-                    onclick: (event) => {
-                        event.preventDefault();
-                        window.alert("This feature is not implemented.");
-                    }
-                }),
-                new FooterButton({
-                    content: "Cancel",
-                    template: "default",
-                    onclick: (event, modal) => {
-                        event.preventDefault();
-                        modal.close();
-                    }
-                })
-            ]
+            type: FooterType.NONE
         });
 
         searchModal.show();
