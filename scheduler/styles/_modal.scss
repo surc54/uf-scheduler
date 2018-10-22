@@ -1,8 +1,8 @@
 div.modal {
     background: white;
-    min-width: 50vw;
+    min-width: 400px;
     max-width: 100vw;
-    min-height: 600px;
+    //min-height: 600px;
     max-height: 100vh;
     box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.23);
 
@@ -14,7 +14,7 @@ div.modal {
         flex-flow: row nowrap;
         justify-content: space-between;
         align-items: center;
-        padding: 30px 20px;
+        padding: 25px 20px;
 
         h1 {
             font-family: "Montserrat", sans-serif;
@@ -38,12 +38,13 @@ div.modal {
     }
 
     > main {
-        padding: 10px 20px;
+        //padding: 10px 20px;
         border-bottom: 1px #EEEEEE solid;
         border-top: 1px #EEEEEE solid;
         flex: 1;
         overflow-y: auto;
         max-height: calc(100vh - 250px);
+        min-height: 100px;
     }
 
     > footer {
@@ -61,4 +62,45 @@ div.modal {
             //flex: 0;
         }
     }
+
+
+    button.s_btn {
+        background: transparent;
+        border: none;
+        padding: 10px 15px;
+        color: #707070;
+        font-weight: 700;
+        outline: none;
+        border-radius: 5px;
+
+        &:hover {
+            background: rgba(170, 170, 170, 0.2);
+        }
+
+        &:active {
+            background: rgba(170, 170, 170, 0.5);
+        }
+    }
+
+
+    // TEMPLATES
+    button.s_btn {
+
+        &.s_btn_template_filled {
+            background: #eeeeee;
+
+            &:hover {
+                background: #dddddd;
+            }
+
+            &:active {
+                background: #cccccc;
+            }
+        }
+
+    }
+}
+
+*.s_modal_hide {
+    display: none !important;
 }

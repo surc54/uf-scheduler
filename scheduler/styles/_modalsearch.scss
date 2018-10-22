@@ -1,0 +1,46 @@
+div.modal {
+    div#s_modal_search {
+
+        display: grid;
+        grid-template-columns: 300px auto;
+        grid-template-rows: auto;
+        grid-template-areas: "search results";
+
+        section#search_form {
+            grid-area: search;
+            padding: 20px 20px 50px 20px;
+
+            label {
+                display: block;
+                font-size: 1.2rem;
+                margin-bottom: 5px;
+            }
+
+            input.search_field {
+                display: block;
+                background: #eeeeee;
+
+                border: none;
+                border-radius: 5px;
+
+                height: 35px;
+                width: 100%;
+
+                outline: none;
+
+                margin-bottom: 20px;
+                padding: 10px;
+            }
+
+            button {
+                float: right;
+            }
+        }
+
+        section#search_results {
+            grid-area: results;
+            background: #EEEEEE;
+            min-width: 500px;
+        }
+    }
+}
