@@ -21,43 +21,56 @@ time, mark, audio, video {
   border: 0;
   font-size: 100%;
   font: inherit;
-  vertical-align: baseline; }
+  vertical-align: baseline;
+}
 
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-  display: block; }
+  display: block;
+}
 
 body {
-  line-height: 1; }
+  line-height: 1;
+}
 
 ol, ul {
-  list-style: none; }
+  list-style: none;
+}
 
 blockquote, q {
-  quotes: none; }
+  quotes: none;
+}
 
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
-  content: none; }
+  content: none;
+}
 
 table {
   border-collapse: collapse;
-  border-spacing: 0; }
+  border-spacing: 0;
+}
 
 * {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: "Open Sans", sans-serif;
-  transition: all 0.2s; }
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
 
 html {
   font-size: 62.5%;
-  transition: font-size 0; }
+  -webkit-transition: font-size 0;
+  transition: font-size 0;
+}
 
 body {
   color: #707070;
-  font-family: "Open Sans", sans-serif; }
+  font-family: "Open Sans", sans-serif;
+}
 
 div.fs-backdrop {
   position: fixed;
@@ -66,200 +79,361 @@ div.fs-backdrop {
   background: rgba(0, 0, 0, 0.7);
   height: 100%;
   width: 100%;
+  -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center; }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
 
 div.modal {
   background: white;
   min-width: 400px;
   max-width: 100vw;
   max-height: 100vh;
-  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.23);
+  -webkit-box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.23);
+          box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.23);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column nowrap; }
-  div.modal > header {
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 20px; }
-    div.modal > header h1 {
-      font-family: "Montserrat", sans-serif;
-      font-size: 3.6rem;
-      font-weight: 700; }
-    div.modal > header button {
-      background: transparent;
-      padding: 15px;
-      border-radius: 50%;
-      border: none;
-      cursor: pointer; }
-      div.modal > header button:hover {
-        background: rgba(170, 170, 170, 0.2); }
-  div.modal > main {
-    border-bottom: 1px #EEEEEE solid;
-    border-top: 1px #EEEEEE solid;
-    flex: 1;
-    overflow-y: auto;
-    max-height: calc(100vh - 250px);
-    min-height: 100px; }
-  div.modal > footer {
-    padding: 10px 15px;
-    justify-self: end;
-    min-height: 60px;
-    display: flex;
-    flex-flow: row-reverse nowrap;
-    justify-content: right;
-    align-items: center; }
-  div.modal button.s_btn {
-    background: transparent;
-    border: none;
-    padding: 10px 15px;
-    color: #707070;
-    font-weight: 700;
-    outline: none;
-    border-radius: 5px; }
-    div.modal button.s_btn:hover {
-      background: rgba(170, 170, 170, 0.2); }
-    div.modal button.s_btn:active {
-      background: rgba(170, 170, 170, 0.5); }
-  div.modal button.s_btn.s_btn_template_filled {
-    background: #eeeeee; }
-    div.modal button.s_btn.s_btn_template_filled:hover {
-      background: #dddddd; }
-    div.modal button.s_btn.s_btn_template_filled:active {
-      background: #cccccc; }
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+div.modal > header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 25px 20px;
+}
+
+div.modal > header h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3.6rem;
+  font-weight: 700;
+}
+
+div.modal > header button {
+  background: transparent;
+  padding: 15px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+}
+
+div.modal > header button:hover {
+  background: rgba(170, 170, 170, 0.2);
+}
+
+div.modal > main {
+  border-bottom: 1px #EEEEEE solid;
+  border-top: 1px #EEEEEE solid;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  overflow-y: auto;
+  max-height: calc(100vh - 250px);
+  min-height: 100px;
+}
+
+div.modal > footer {
+  padding: 10px 15px;
+  justify-self: end;
+  min-height: 60px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-flow: row-reverse nowrap;
+          flex-flow: row-reverse nowrap;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+div.modal button.s_btn {
+  background: transparent;
+  border: none;
+  padding: 10px 15px;
+  color: #707070;
+  font-weight: 700;
+  outline: none;
+  border-radius: 5px;
+}
+
+div.modal button.s_btn:hover {
+  background: rgba(170, 170, 170, 0.2);
+}
+
+div.modal button.s_btn:active {
+  background: rgba(170, 170, 170, 0.5);
+}
+
+div.modal button.s_btn.s_btn_template_filled {
+  background: #eeeeee;
+}
+
+div.modal button.s_btn.s_btn_template_filled:hover {
+  background: #dddddd;
+}
+
+div.modal button.s_btn.s_btn_template_filled:active {
+  background: #cccccc;
+}
 
 *.s_modal_hide {
-  display: none !important; }
+  display: none !important;
+}
 
 *.s_modal_offscreen {
   position: absolute;
   left: -100vw;
-  top: -100vh; }
+  top: -100vh;
+}
 
 *.s_modal_fakemain {
   max-height: calc(100vh - 250px);
   min-height: 100px;
-  max-width: 100vw; }
+  max-width: 100vw;
+}
 
 div.modal div#s_modal_search {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: 300px auto;
-  grid-template-rows: auto;
-  grid-template-areas: "search results"; }
-  div.modal div#s_modal_search section#search_form {
-    grid-area: search;
-    padding: 20px 20px 50px 20px; }
-    div.modal div#s_modal_search section#search_form label {
-      display: block;
-      font-size: 1.2rem;
-      margin-bottom: 5px; }
-    div.modal div#s_modal_search section#search_form input.search_field {
-      display: block;
-      background: #eeeeee;
-      border: none;
-      border-radius: 5px;
-      height: 35px;
-      width: 100%;
-      outline: none;
-      margin-bottom: 20px;
-      padding: 10px; }
-    div.modal div#s_modal_search section#search_form button {
-      float: right; }
-  div.modal div#s_modal_search section#search_results {
-    grid-area: results;
-    background: #EEEEEE;
-    min-width: 500px; }
+  -ms-grid-columns: 300px auto;
+      grid-template-columns: 300px auto;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "search results";
+  min-height: 75vh;
+}
+
+div.modal div#s_modal_search section#search_form {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: search;
+  padding: 20px 20px 50px 20px;
+}
+
+div.modal div#s_modal_search section#search_form label {
+  display: block;
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+div.modal div#s_modal_search section#search_form input.search_field {
+  display: block;
+  background: #eeeeee;
+  border: none;
+  border-radius: 5px;
+  height: 35px;
+  width: 100%;
+  outline: none;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+div.modal div#s_modal_search section#search_form button {
+  float: right;
+}
+
+div.modal div#s_modal_search section#search_results {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: results;
+  background: #EEEEEE;
+  min-width: 600px;
+}
 
 html {
-  background: #F0F0F0; }
+  background: #F0F0F0;
+}
 
 body {
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+}
 
 body > main {
+  display: -ms-grid;
   display: grid;
-  grid-template-columns: auto 50rem;
-  grid-template-rows: auto;
-  grid-template-areas: "schedule courses";
-  height: 100vh; }
-  body > main.course-collapsed {
-    grid-template-columns: auto 0; }
-  body > main > div#schedule {
-    background: white;
-    grid-area: schedule; }
-  body > main > div#courses {
-    background: white;
-    grid-area: courses;
-    overflow: hidden;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23); }
+  -ms-grid-columns: auto 50rem;
+      grid-template-columns: auto 50rem;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+      grid-template-areas: "schedule courses";
+  height: 100vh;
+}
+
+body > main.course-collapsed {
+  -ms-grid-columns: auto 0;
+      grid-template-columns: auto 0;
+}
+
+body > main > div#schedule {
+  background: white;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: schedule;
+}
+
+body > main > div#courses {
+  background: white;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: courses;
+  overflow: hidden;
+  -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23);
+          box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23);
+}
 
 section.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 30px; }
-  section.header > h1 {
-    font-family: "Montserrat", sans-serif;
-    font-size: 4.2rem;
-    font-weight: 700; }
-  section.header > div.commands {
-    display: flex;
-    flex-flow: row nowrap; }
-    section.header > div.commands > a {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: inherit;
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      margin-left: 5px;
-      text-decoration: none; }
-      section.header > div.commands > a:hover {
-        background: rgba(0, 0, 0, 0.1); }
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 30px;
+}
+
+section.header > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 4.2rem;
+  font-weight: 700;
+}
+
+section.header > div.commands {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+
+section.header > div.commands > a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  color: inherit;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin-left: 5px;
+  text-decoration: none;
+}
+
+section.header > div.commands > a:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
 
 section#courseList {
   padding: 0 30px;
   overflow-y: auto;
-  height: calc(100vh - 110px); }
-  section#courseList > div.course {
-    background: #F5F5F5;
-    height: 13rem;
-    margin: 25px 0;
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: stretch;
-    user-select: none;
-    cursor: default;
-    overflow: hidden; }
-    section#courseList > div.course div.course-color {
-      background: #EB3636;
-      width: 30px;
-      cursor: pointer; }
-    section#courseList > div.course div.course-information {
-      display: flex;
-      flex-flow: column nowrap;
-      justify-content: center;
-      margin-left: 25px; }
-      section#courseList > div.course div.course-information > h1 {
-        font-family: "Montserrat", sans-serif;
-        font-size: 20px;
-        font-weight: 700;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        width: 350px; }
-      section#courseList > div.course div.course-information > p {
-        margin-top: 5px; }
-      section#courseList > div.course div.course-information > a {
-        margin-top: 10px;
-        color: #3c87f8;
-        text-decoration: none; }
+  height: calc(100vh - 110px);
+}
+
+section#courseList > div.course {
+  background: #F5F5F5;
+  height: 13rem;
+  margin: 25px 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: default;
+  overflow: hidden;
+}
+
+section#courseList > div.course div.course-color {
+  background: #EB3636;
+  width: 30px;
+  cursor: pointer;
+}
+
+section#courseList > div.course div.course-information {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-left: 25px;
+}
+
+section#courseList > div.course div.course-information > h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 350px;
+}
+
+section#courseList > div.course div.course-information > p {
+  margin-top: 5px;
+}
+
+section#courseList > div.course div.course-information > a {
+  margin-top: 10px;
+  color: #3c87f8;
+  text-decoration: none;
+}
 
 div.course-drag {
   position: absolute;
@@ -267,17 +441,37 @@ div.course-drag {
   left: 0;
   width: 200px;
   height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   border-radius: 10px;
   cursor: default;
   cursor: -webkit-grab;
-  user-select: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   color: white;
   background: #EB3636;
-  transition: box-shadow 0.2s, opacity 0.2s; }
-  div.course-drag.active {
-    box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
-    opacity: 0.5; }
+  -webkit-transition: opacity 0.2s, -webkit-box-shadow 0.2s;
+  transition: opacity 0.2s, -webkit-box-shadow 0.2s;
+  transition: box-shadow 0.2s, opacity 0.2s;
+  transition: box-shadow 0.2s, opacity 0.2s, -webkit-box-shadow 0.2s;
+}
+
+div.course-drag.active {
+  -webkit-box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+          box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5);
+  opacity: 0.5;
+}
+/*# sourceMappingURL=main.css.map */

@@ -5,3 +5,5 @@ sample_module.json
 .vscode
 run.bat
 run.sh
+modules/UFDataRetriever.js
+classlookup

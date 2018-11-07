@@ -7,23 +7,13 @@
  */
 
 import { Modal, FooterButton, FooterType, ContentType } from "./ModalModule";
-import SampleDataRetriever from "../../modules/SampleDataRetriever";
 
+export default class NewCourseModule {
+    static init() {
 
-let NewCourseModule = {
+    }
 
-    init: () => {
-        SampleDataRetriever.search({
-            semesterCode: 32
-        });
-        console.log('eet');
-    },
-
-    /**
-     * Shows search modal
-     * @param {function(modal:Modal)} callback
-     */
-    showSearchModal(callback = null) {
+    static showSearchModal(callback = null) {
         let searchModal = new Modal("Search", {
             backdropClickCloses: true,
             closeButton: true,
@@ -44,7 +34,4 @@ let NewCourseModule = {
         searchModal.show();
         if (callback) callback(searchModal);
     }
-    
-};
-
-export default NewCourseModule;
+}

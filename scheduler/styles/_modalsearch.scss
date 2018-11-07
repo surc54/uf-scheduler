@@ -5,6 +5,7 @@ div.modal {
         grid-template-columns: 300px auto;
         grid-template-rows: auto;
         grid-template-areas: "search results";
+        min-height: 75vh;
 
         section#search_form {
             grid-area: search;
@@ -40,7 +41,7 @@ div.modal {
         section#search_results {
             grid-area: results;
             background: #EEEEEE;
-            min-width: 500px;
+            min-width: 600px;
         }
     }
 }
