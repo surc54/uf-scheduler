@@ -151,10 +151,14 @@ export class Modal {
                 }
             };
         }
-        this.backdrop = FullScreenBackdropModule.createBackdrop(this.settings.zIndex);
+        this.backdrop = FullScreenBackdropModule.createBackdrop(this.settings.zIndex, "body", false);
         this.backdrop = $(this.backdrop);
 
         this.backdrop.append(this.elem);
+        setTimeout(() => {
+            FullScreenBackdropModule.show();
+        });
+
     }
 
     close() {
@@ -349,8 +353,29 @@ export class Modal {
         }
 
         if (this.content) {
+            let savedContent;
+            let newModal = false;
+            let height, width;
+
+            if (typeof(this.content) !== "string") {
+                savedContent = this.content;
+                this.content = savedContent.html();
+                height = main.height();
+                width = main.width(); // set on new main for consistent animation
+                main.remove();
+                main = null;
+            }
+
+
             if (!main) {
-                main = $(document.createElement("main"));
+                if (savedContent) {
+                    main = savedContent;
+                    main.height(height);
+                    main.width(width);
+                } else {
+                    newModal = true;
+                    main = $(document.createElement("main"));
+                }
                 if (header) {
                     header.after(main); // insert main after header
                 } else if (footer) {
@@ -359,7 +384,35 @@ export class Modal {
                     this.elem.append(main); // no known elements in modal, just insert at end.
                 }
             }
-            main.html(this.content);
+            if (savedContent || !newModal) {
+                // Temporary render to find height/width
+                let element = document.createElement("div");
+                element = $(element);
+                element.addClass("s_modal_offscreen s_modal_fakemain");
+                element.addClass("modal");
+                let tempMain = $(document.createElement("main"));
+                element.append(tempMain);
+                tempMain.html(this.content);
+                $("body").append(element);
+                height = element.height();
+                width = element.width();
+                element.remove();
+            }
+            if (height && width) {
+                main.animate({
+                    height: height,
+                    width: width
+                }, 250, "swing", () => {
+                    // Animation complete;
+                    setTimeout(() => {
+                        main.css({
+                            height: "",
+                            width: ""
+                        });
+                    }, 100);
+                });
+            }
+            if (!savedContent) main.html(this.content);
         } else {
             if (main) main.remove();
         }
@@ -389,6 +442,45 @@ export class Modal {
         } else {
             if (footer) footer.remove();
         }
+    }
+
+    /**
+     * Saves state of modal
+     * @param {string} saveName
+     */
+    saveState(saveName) {
+        if (!this.saves) {
+            this.saves = { };
+        }
+        this.saves[saveName] = {
+            settings: this.settings,
+            title: this.title,
+            content: this.content,
+            footer: this.footer
+        };
+        if (this.elem) {
+            this.saves[saveName].content = this.elem.find("main").clone(true, true);
+        }
+    }
+
+    /**
+     * Load state of modal
+     * @param {string} saveName
+     */
+    loadState(saveName) {
+        if (!this.saves) {
+            console.error("No saves exist [ModalModule].");
+            return;
+        }
+        if (!this.saves[saveName]) {
+            console.error(`Save ${saveName} does not exist [ModalModule].`);
+            return;
+        }
+        let save = this.saves[saveName];
+        this.settings = save.settings;
+        this.title = save.title;
+        this.content = save.content;
+        this.footer = save.footer;
     }
 
     /**

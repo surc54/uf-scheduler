@@ -15,7 +15,8 @@ let NewCourseModule = {
     init: () => {
         SampleDataRetriever.search({
             semesterCode: 32
-        })
+        });
+        console.log('eet');
     },
 
     /**

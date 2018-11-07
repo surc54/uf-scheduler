@@ -6,7 +6,7 @@ export let FullScreenBackdropModule = {
 
     },
 
-    createBackdrop: (z = 10, appendTo = "body") => {
+    createBackdrop: (z = 10, appendTo = "body", show = true) => {
         let elem = $(document.createElement("div"));
 
         elem.addClass("fs-backdrop");
@@ -14,9 +14,9 @@ export let FullScreenBackdropModule = {
 
         elem.css("opacity", 0);
         $(appendTo).append(elem);
-        setTimeout(() => {
-            elem.css("opacity", 1);
-        });
+        if (show) {
+            show();
+        }
 
         addListeners(elem);
         return elem[0];
@@ -29,6 +29,12 @@ export let FullScreenBackdropModule = {
         setTimeout(() => {
             bd.remove();
         }, 500);
+    },
+
+    show: () => {
+        setTimeout(() => {
+            $("div.fs-backdrop").css("opacity", 1);
+        });
     },
 
     listeners: {

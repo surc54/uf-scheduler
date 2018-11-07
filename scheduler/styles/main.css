@@ -135,6 +135,16 @@ div.modal {
 *.s_modal_hide {
   display: none !important; }
 
+*.s_modal_offscreen {
+  position: absolute;
+  left: -100vw;
+  top: -100vh; }
+
+*.s_modal_fakemain {
+  max-height: calc(100vh - 250px);
+  min-height: 100px;
+  max-width: 100vw; }
+
 div.modal div#s_modal_search {
   display: grid;
   grid-template-columns: 300px auto;
