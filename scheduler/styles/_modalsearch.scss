@@ -5,6 +5,7 @@ div.modal {
         grid-template-columns: 300px auto;
         grid-template-rows: auto;
         grid-template-areas: "search results";
+        min-height: 75vh;
 
         section#search_form {
             grid-area: search;
@@ -32,15 +33,171 @@ div.modal {
                 padding: 10px;
             }
 
-            button {
-                float: right;
+            .s_search_btn_wrapper {
+                text-align: right;
+                margin-bottom: 50px;
+            }
+
+            .s_search_error {
+                margin-top: 10px;
+                background: #F66B6B;
+                color: white;
+                padding: 20px 10px;
+                
+                display: flex;
+                flex-flow: row nowrap;
+                justify-content: flex-start;
+                align-items: center;
+
+                > span.material-icons {
+                    padding: 0 10px;
+                }
+
+                > p {
+                    word-wrap: break-word;
+                    word-break: normal;
+                }
             }
         }
 
         section#search_results {
             grid-area: results;
             background: #EEEEEE;
-            min-width: 500px;
+            min-width: 600px;
+            padding: 10px 20px;
+            box-shadow: inset 3px 3px 5px -2px rgba(0, 0, 0, 0.23);
+            overflow-y: auto;
+            max-height: calc(100vh - 252px);
+
+            > h2 {
+                font-family: "Open Sans", sans-serif;
+                font-weight: bold;
+                margin-bottom: 16px;
+            }
+
+            > div.class-card {
+                background: white;
+                box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.23);
+                min-height: 100px;
+
+                padding: 10px 20px;
+                margin-bottom: 20px;
+
+                > div.class-heading {
+                    display: grid;
+                    grid-template-columns: auto 40px;
+                    grid-template-rows: 40px auto;
+                    grid-template-areas:
+                    "title button"
+                    "subtitle subtitle";
+
+                    > h1 {
+                        grid-area: title;
+                        font-size: 22px;
+                        font-family: "Montserrat", sans-serif;
+                        font-weight: bold;
+                        align-self: center;
+                    }
+
+                    > h2 {
+                        grid-area: subtitle;
+                        font-size: 15px;
+                        font-family: "Montserrat", sans-serif;
+                        font-weight: bold;
+                    }
+
+                    button {
+                        grid-area: button;
+                        border-radius: 50%;
+                        height: 40px;
+                        width: 40px;
+
+                        border: none;
+                        background: #F8F8F8;
+                        color: inherit;
+
+                        &.class-added {
+                            color: white;
+                            background: #217AFF;
+                        }
+
+                        &.class-conflicted {
+                            color: white;
+                            background: #F66B6B;
+                        }
+                    }
+                }
+
+                > div.class-details {
+                    padding-top: 20px;
+                    padding-bottom: 20px;
+
+                    display: grid;
+                    grid-template-columns: 1fr 2fr;
+                    grid-template-areas: "teachers meetings";
+
+                    justify-content: stretch;
+
+                    > div {
+                        h3 {
+                            margin-bottom: 5px;
+                        }
+                    }
+
+                    > div.teachers {
+                        padding: 0 15px 0 0;
+                        grid-area: teachers;
+
+                        ul {
+                            list-style-position: inside;
+                            padding-left: 10px;
+                            li {
+                                padding-top: 5px;
+                                list-style-type: disc;
+                            }
+                        }
+                    }
+
+                    > div.meetings {
+                        padding: 0 0 0 15px;
+                        grid-area: meetings;
+                        border-left: 1px solid #eee;
+
+                        display: flex;
+                        flex-flow: column nowrap;
+
+
+                        div.meeting {
+                            padding-top: 5px;
+
+                           span.meeting-day {
+                               display: inline-flex;
+                               width: 30px;
+                               height: 30px;
+                               background: #e1e1e1;
+                               margin-right: 5px;
+
+                               justify-content: center;
+                               align-items: center;
+
+                               font-weight: bold;
+                               font-family: "Montserrat", sans-serif;
+
+
+                               border-radius: 50%;
+
+                               &.md-conflicted {
+                                   color: white;
+                                   background: #F66B6B;
+                               }
+                           }
+                           span.meeting-time {
+                               margin-left: 10px;
+                           }
+                        }
+                    }
+                }
+            }
         }
     }
 }

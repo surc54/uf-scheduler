@@ -58,15 +58,60 @@
     <div id="s_modal_search" class="s_modal_hide">
         <section id="search_form">
             <label for="semester-code">Semester Code</label>
-            <input class="search_field" id="semester-code" type="text" value="2191" required>
+            <input class="search_field" id="s_search_semester_code" type="number" value="2191" required>
             <label for="class-num">Class Number</label>
-            <input class="search_field" id="class-num" type="text">
+            <input class="search_field" id="s_search_class_num" type="text">
             <label for="course-code">Course Code</label>
-            <input class="search_field" id="course-code" type="text">
-            <button class="s_btn s_btn_template_filled" s_action="search-classes">Search</button>
+            <input class="search_field" id="s_search_course_code" type="text">
+            <div class="s_search_btn_wrapper">
+                <button class="s_btn s_btn_template_filled" s_action="search-classes">Search</button>
+            </div>
         </section>
         <section id="search_results">
-
+            <!-- <h2>Results</h2>
+            <div class="class-card">
+                <div class="class-heading">
+                    <h1>Programming Fundamentals 2</h1>
+                    <h2>COP3502 - 11190</h2>
+                    <button s_action="add_class" s_data="11190" class="material-icons">
+                        add
+                    </button>
+                </div>
+                <div class="class-details">
+                    <div class="teachers">
+                        <h3>Taught by</h3>
+                        <ul>
+                            <li>Joshua Fox</li>
+                            <li>Joshua Fox</li>
+                        </ul>
+                    </div>
+                    <div class="meetings">
+                        <h3>Meetings</h3>
+                        <div class="meeting">
+                            <span class="meeting-day">
+                                M
+                            </span>
+                            <span class="meeting-day">
+                                W
+                            </span>
+                            <span class="meeting-day md-conflicted">
+                                F
+                            </span>
+                            <span class="meeting-time">
+                                5:10 PM - 6:00 PM
+                            </span>
+                        </div>
+                        <div class="meeting">
+                            <span class="meeting-day">
+                                F
+                            </span>
+                            <span class="meeting-time">
+                                9:35 AM - 10:25 AM
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
         </section>
     </div>
 

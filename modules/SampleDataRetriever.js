@@ -14,7 +14,7 @@ export default class SampleDataRetriever {
         if (!options.classCode && !options.courseCode) {
             return null;
         }
-        return new Class({
+        let sample = new Class({
             courseCode: "COP3503",
             name: "Programming Fundamentals 2",
             classNumber: 11190,
@@ -27,5 +27,12 @@ export default class SampleDataRetriever {
                 new Meeting("F", 6, 7)
             ]
         });
+        if (sample && options.classCode) {
+            if (sample.classNumber !== options.classCode) sample = null;
+        }
+        if (sample && options.courseCode) {
+            if (sample.courseCode !== options.courseCode) sample = null;
+        }
+        return sample;
     }
 }
