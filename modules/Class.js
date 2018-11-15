@@ -16,22 +16,37 @@ export class Class {
         this._meetings = options.meetings;
     }
 
+    /**
+     * @returns {string}
+     */
     get courseCode() {
         return this._courseCode;
     }
 
+    /**
+     * @returns {string}
+     */
     get name() {
         return this._name;
     }
 
+    /**
+     * @returns {number}
+     */
     get classNumber() {
         return this._classNumber;
     }
 
+    /**
+     * @returns {string[]}
+     */
     get instructors() {
         return this._instructors;
     }
 
+    /**
+     * @returns {Meeting[]}
+     */
     get meetings() {
         return this._meetings;
     }
@@ -55,14 +70,23 @@ export class Meeting {
     }
 
 
+    /**
+     * @returns {string[]}
+     */
     get days() {
         return this._meetDays;
     }
 
+    /**
+     * @returns {number}
+     */
     get startPeriod() {
         return this._meetBegin;
     }
 
+    /**
+     * @returns {number}
+     */
     get endPeriod() {
         return this._meetEnd;
     }
