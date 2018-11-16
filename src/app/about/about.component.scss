@@ -1,0 +1,18 @@
+div.content-wrapper {
+    //padding: 20px 10px;
+
+    footer {
+        margin-top: 10px;
+        display: flex;
+        p {
+        }
+        span.space-extender {
+            flex: 1 1 auto;
+        }
+    }
+}
+
+mat-icon.open-ext {
+    font-size: 12px;
+    text-align: left;
+}
