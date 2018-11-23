@@ -53,7 +53,7 @@
 
 
     <div @classBlock class="cell mat-elevation-z5" *ngFor="let c of this.courseManager.meetings" [style.gridArea]="c.gridArea"
-         [style.background]="c.course.options.colors.background" [style.color]="c.course.options.colors.foreground">
+         [style.background]="getBackground(c.course)" [style.color]="getForeground(c.course)">
         {{c.course.courseCode}}
     </div>
 </mat-card>

@@ -10,10 +10,11 @@ export class Class {
 
         if (!this.options.colors) {
             this.options.colors = {
-                background: "darkblue",
-                foreground: "white"
+                background: "white",
+                foreground: "black"
             };
         }
+
 
         this.raw = raw;
     }

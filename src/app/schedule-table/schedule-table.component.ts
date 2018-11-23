@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {CourseManagerService} from "../coursemanager.service";
 import {animate, query, state, style, transition, trigger} from "@angular/animations";
+import {Class} from "../../models/Class";
 
 @Component({
     selector: "app-schedule-table",
@@ -28,6 +29,18 @@ export class ScheduleTableComponent implements OnInit {
     }
 
     ngOnInit() {
+    }
+
+    getBackground(c: Class) {
+        return c.options.colors.background;
+    }
+
+    getForeground(c: Class) {
+        return c.options.colors.foreground;
+    }
+
+    getOpacity(c: Class) {
+        return "1";
     }
 
 }

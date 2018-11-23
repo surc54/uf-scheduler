@@ -1,4 +1,5 @@
 import {BrowserModule} from "@angular/platform-browser";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgModule} from "@angular/core";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 
@@ -16,7 +17,6 @@ import {SearchInterceptorService} from "./search-interceptor.service";
 import { CourseListComponent } from './course-list/course-list.component';
 import { MainContentComponent } from './main-content/main-content.component';
 import { LayoutModule } from '@angular/cdk/layout';
-import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import {ClassCardComponent, ClassCardInstructorComponent} from "./class-card/class-card.component";
 import { CourseAddComponent } from './course-add/course-add.component';
@@ -35,16 +35,13 @@ import { CourseAddComponent } from './course-add/course-add.component';
     ],
     imports: [
         BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         MaterialComponentsModule,
         HttpClientModule,
         LayoutModule,
-        MatToolbarModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatIconModule,
-        MatListModule
     ],
     providers: [
         {

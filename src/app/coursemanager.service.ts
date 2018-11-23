@@ -126,8 +126,8 @@ export class CourseManagerService {
                 return null;
         }
 
-        rowStart = m.startPeriod + 1;
-        rowEnd = m.endPeriod + 2;
+        rowStart = Number(m.startPeriod) + 1;
+        rowEnd = Number(m.endPeriod) + 2;
 
         return this._sanitizer.bypassSecurityTrustStyle(`${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`);
     }
@@ -147,6 +147,8 @@ export class CourseManagerService {
                 c.options.colors.background = color.background;
 
                 color.usage++; // works surprisingly
+                console.log(`Adding class ${c.courseCode}: `, c);
+
 
                 this.courses.push(c);
                 this.buildMeetings(true);

@@ -92,7 +92,7 @@ export class UFDataService {
             ]
         });
 
-        return of([c]);
+        // return of([c]); // sample
 
 
 
@@ -111,7 +111,7 @@ export class UFDataService {
 
 }
 
-interface SearchOptions {
+export interface SearchOptions {
     semesterCode: number;
     classNumber?: number;
     courseCode?: string;

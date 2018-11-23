@@ -69,6 +69,10 @@ export class ClassCardComponent implements OnInit {
     ngOnInit() {
         if (this.attrCourse) {
             this.course = this.attrCourse;
+            if (this.courseManager.getCourse(this.course.classNumber)) {
+                // GET COLORS FROM COURSE MANAGER!! COULD BE A LOT MORE CHECKS BUT IM SUPER LAZY
+                this.course.options.colors = this.courseManager.getCourse(this.course.classNumber).options.colors;
+            }
         } else if (this.classNum) {
             this.course = this.courseManager.getCourse(this.classNum);
             if (this.course === null) {
@@ -77,6 +81,20 @@ export class ClassCardComponent implements OnInit {
         } else {
             throw new Error("No attribute given to identify class. Provide either 'class' or 'classNum'");
         }
+    }
+
+    add() {
+        this.courseManager.addCourse(this.course)
+            .then(val => {
+                this.snackBar.open(`Added course ${this.course.courseCode}`, "", {
+                    duration: 5000
+                });
+            })
+            .catch(err => {
+                this.snackBar.open(`Failed to add course ${this.course.courseCode}: ${err}`, "", {
+                    duration: 5000
+                });
+            });
     }
 
     remove() {
@@ -93,6 +111,14 @@ export class ClassCardComponent implements OnInit {
                     duration: 5000
                 });
             });
+    }
+
+    preview(add: boolean) {
+        if (add && !this.courseManager.alreadyInCourseList(this.course.classNumber)) {
+            this.courseManager.addCourse(this.course);
+        } else if (!add && this.courseManager.alreadyInCourseList(this.course.classNumber)) {
+            this.courseManager.removeCourse(this.course.classNumber);
+        }
     }
 
 }

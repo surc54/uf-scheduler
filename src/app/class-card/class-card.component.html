@@ -1,7 +1,8 @@
 <mat-card class="class-card" @courseListItem
     [style.background]="course.options.colors.background" [style.color]="course.options.colors.foreground"
     [class.foreground-white]="course.options.colors.foreground == 'white'"
-    [class.foreground-black]="course.options.colors.foreground == 'black'">
+    [class.foreground-black]="course.options.colors.foreground == 'black'"
+    (mouseenter)="preview(true)" (mouseleave)="preview(false)">
     <mat-card-title-group>
         <mat-card-title>{{course.name}}</mat-card-title>
         <mat-card-subtitle>{{course.courseCode + " (" + course.classNumber + ")"}}</mat-card-subtitle>
@@ -21,9 +22,13 @@
         <!--<button mat-stroked-button color="accent" *ngIf="!courseManager.alreadyInCourseList(course.classNumber)">ADD</button>-->
         <!--<button mat-button (click)="remove()" *ngIf="courseManager.alreadyInCourseList(course.classNumber)">REMOVE</button>-->
     <!--</mat-card-actions>-->
-    <mat-card-actions *ngIf="footer === 'IN_SEARCH'">
+    <mat-card-actions>
         <button mat-button>DETAILS</button>
-        <button mat-stroked-button color="accent" *ngIf="!courseManager.alreadyInCourseList(course.classNumber)">ADD</button>
-        <button mat-button (click)="remove()" *ngIf="courseManager.alreadyInCourseList(course.classNumber)">REMOVE</button>
+        <button mat-button color="accent" (click)="add()"
+                *ngIf="!courseManager.alreadyInCourseList(course.classNumber)">
+            ADD
+        </button>
+        <button mat-button (click)="remove()"
+                *ngIf="courseManager.alreadyInCourseList(course.classNumber)">REMOVE</button>
     </mat-card-actions>
 </mat-card>
