@@ -3,6 +3,8 @@ mat-card.class-card {
     margin: 10px 0;
     box-shadow: none;
 
+    transition: color 0.25s, background 0.25s;
+
     border: 1px solid #bbb;
 
     &:hover {
@@ -18,6 +20,13 @@ mat-card.class-card {
 
     .instructor-info {
         padding-top: 10px;
+    }
+
+    mat-card-actions {
+        text-align: right;
+        > button {
+            margin-left: 5px;
+        }
     }
 
 }

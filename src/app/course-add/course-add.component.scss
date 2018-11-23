@@ -1,0 +1,22 @@
+div.content {
+    padding: 20px 10px;
+
+    > form {
+        margin-bottom: 20px;
+
+        > * {
+            display: block;
+        }
+        div.form-actions {
+            text-align: right;
+
+            > button {
+                margin-left: 5px;
+            }
+        }
+    }
+
+    > div.results {
+        margin-top: 20px;
+    }
+}

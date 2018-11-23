@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from "@angular/core";
 import {MatDialog, MatSnackBar} from "@angular/material";
 import {AboutComponent} from "../about/about.component";
 import {CourseManagerService} from "../coursemanager.service";
@@ -13,6 +13,9 @@ import {UFDataService} from "../ufdata.service";
 export class ToolbarComponent implements OnInit {
 
     @Input() sidebar;
+    @Output() clickAdd: EventEmitter<boolean> = new EventEmitter();
+
+    addButtonToggle = false;
 
 
     constructor(public snackBar: MatSnackBar,
@@ -31,6 +34,11 @@ export class ToolbarComponent implements OnInit {
     }
 
     click_addCourse() {
+        this.addButtonToggle = !this.addButtonToggle;
+        this.clickAdd.emit(this.addButtonToggle);
+        return;
+
+        // old stuff
         let message = "Feature is not implemented.";
 
         message = "Searching for classes...";

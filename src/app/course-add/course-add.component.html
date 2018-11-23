@@ -1,0 +1,78 @@
+<div class="content">
+    <h2 class="mat-h2">Search</h2>
+    <form>
+        <mat-form-field>
+            <mat-select placeholder="Semester" value="2191" required>
+                <mat-option value="2191">
+                    Spring 2019
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Class Number">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput type="text" placeholder="Course Code">
+        </mat-form-field>
+        <div class="form-actions">
+            <button mat-button type="reset">Clear</button>
+            <button mat-raised-button color="accent" type="submit">Search</button>
+        </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div class="results">
+        <app-class-card *ngFor="let c of results" [class]="c" footer="IN_SEARCH"></app-class-card>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+        <BR>
+    </div>
+</div>

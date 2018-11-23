@@ -13,11 +13,17 @@
             <app-class-card-instructor></app-class-card-instructor>
         </div>
     </mat-card-content>
-    <mat-card-actions *ngIf="footer === 'IN_COURSE_LIST'">
-        <button mat-button (click)="remove()">REMOVE</button>
-        <button mat-button>DETAILS</button>
-    </mat-card-actions>
+    <!--<mat-card-actions *ngIf="footer === 'IN_COURSE_LIST'">-->
+        <!--<button mat-button (click)="remove()">REMOVE</button>-->
+        <!--<button mat-button>DETAILS</button>-->
+    <!--</mat-card-actions>-->
+    <!--<mat-card-actions *ngIf="footer === 'IN_SEARCH'">-->
+        <!--<button mat-stroked-button color="accent" *ngIf="!courseManager.alreadyInCourseList(course.classNumber)">ADD</button>-->
+        <!--<button mat-button (click)="remove()" *ngIf="courseManager.alreadyInCourseList(course.classNumber)">REMOVE</button>-->
+    <!--</mat-card-actions>-->
     <mat-card-actions *ngIf="footer === 'IN_SEARCH'">
-        <button mat-button>ADD</button>
+        <button mat-button>DETAILS</button>
+        <button mat-stroked-button color="accent" *ngIf="!courseManager.alreadyInCourseList(course.classNumber)">ADD</button>
+        <button mat-button (click)="remove()" *ngIf="courseManager.alreadyInCourseList(course.classNumber)">REMOVE</button>
     </mat-card-actions>
 </mat-card>

@@ -17,6 +17,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatCardModule} from '@angular/material/card';
 import {MatTableModule} from '@angular/material/table';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 
@@ -38,7 +42,10 @@ import {MatTableModule} from '@angular/material/table';
         MatTooltipModule,
         MatSidenavModule,
         MatCardModule,
-        MatTableModule
+        MatTableModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule
     ]
 })
 export class MaterialComponentsModule {

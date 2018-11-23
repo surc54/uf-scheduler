@@ -4,6 +4,9 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+body {
+    transition: color 0.25s, background 0.25s;
+}
 
 // schedule colors
 $s_color_1: "#3B8E30";

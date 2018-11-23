@@ -1,9 +1,10 @@
 <section class="content">
-    <app-toolbar class="app-toolbar" [sidebar]="sidebar"></app-toolbar>
+    <app-toolbar class="app-toolbar" [sidebar]="sidebar" (clickAdd)="addMode = $event"></app-toolbar>
 
     <mat-sidenav-container class="main-content">
         <mat-sidenav #sidebar mode="side" opened style="width: 400px;">
-            <app-course-list></app-course-list>
+            <app-course-list *ngIf="addMode === false"></app-course-list>
+            <app-course-add *ngIf="addMode === true"></app-course-add>
         </mat-sidenav>
         <mat-sidenav-content>
             <app-schedule-table></app-schedule-table>

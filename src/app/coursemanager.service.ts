@@ -163,10 +163,15 @@ export class CourseManagerService {
                 for (let i = 0; i < this.courses.length; i++) {
                     let c = this.courses[i];
                     if (c.classNumber === classNumber) {
+                        // reset colors
                         let colors = c.options.colors;
                         this.lowerUsageOfColor(colors.background, colors.foreground);
+                        colors.background = "white";
+                        colors.foreground = "black";
+
+                        // remove
                         this.courses.splice(i, 1);
-                        this.buildMeetings(false);
+                        this.buildMeetings(false); // remove from meeting list (controls schedule table)
                         resolve(this.courses);
                     }
                 }

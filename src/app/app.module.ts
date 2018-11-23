@@ -19,6 +19,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule } from '@angular/material';
 import { ScheduleTableComponent } from './schedule-table/schedule-table.component';
 import {ClassCardComponent, ClassCardInstructorComponent} from "./class-card/class-card.component";
+import { CourseAddComponent } from './course-add/course-add.component';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {ClassCardComponent, ClassCardInstructorComponent} from "./class-card/cla
         MainContentComponent,
         ScheduleTableComponent,
         ClassCardComponent,
-        ClassCardInstructorComponent
+        ClassCardInstructorComponent,
+        CourseAddComponent
     ],
     imports: [
         BrowserModule,
