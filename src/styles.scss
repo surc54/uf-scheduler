@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+//@import "../node_modules/material-design-icons/iconfont/material-icons.css"; // offline mat icons .. sometimes not working
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// schedule colors
+$s_color_1: "#3B8E30";
+$s_color_2: "#7C2774";
+$s_color_3: "#251351";
+$s_color_4: "#5C80BC";
+$s_color_5: "#912224";
+
+@function setForeground($color) {
+    @if (lightness($color) > 50) {
+        @return #000000; // Lighter background, return dark color
+    } @else {
+        @return #ffffff; // Darker background, return light color
+    }
+}

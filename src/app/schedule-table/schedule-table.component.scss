@@ -1,0 +1,76 @@
+mat-card {
+    //width: calc(100% - 40px);
+    margin: 20px 40px;
+
+    display: grid;
+    grid-template-columns: 50px auto 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+
+    > div.cell {
+        //background: lightgray; // temp
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-flow: column wrap;
+
+        padding: 0 10px;
+
+        text-align: center;
+
+        //border: 1px solid black;
+        border: none;
+
+        user-select: none;
+        cursor: pointer;
+        transition: all 0.25s;
+
+        &:hover {
+            box-shadow: 0 0 50px 5px rgba(0,0,0,0.23);
+        }
+
+        &.t-static {
+            cursor: default;
+            border: none;
+            border-bottom: 0.5px solid #aaa;
+            background: transparent;
+            color: black;
+            &:hover {
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+table {
+    width: calc(100% - 40px);
+    margin: 20px auto;
+}
+
+//.mat-table {
+//    display: block;
+//}
+//
+//.mat-row,
+//.mat-header-row {
+//    display: flex;
+//    border-bottom-width: 1px;
+//    border-bottom-style: solid;
+//    align-items: center;
+//    min-height: 48px;
+//    padding: 0 24px;
+//
+//}
+//
+//.mat-cell,
+//.mat-header-cell {
+//    flex: 1;
+//    overflow: hidden;
+//    align-self: stretch;
+//    word-wrap: break-word;
+//    border-left: 1px solid #777;
+//
+//    display: flex;
+//    flex-flow: row nowrap;
+//
+//    align-items: center;
+//}

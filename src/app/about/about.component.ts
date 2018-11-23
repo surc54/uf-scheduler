@@ -9,13 +9,17 @@ import {UFDataService} from "../ufdata.service";
 })
 export class AboutComponent implements OnInit {
 
-    constructor(public dialogRef: MatDialogRef<AboutComponent>) {
+    constructor(public dialogRef: MatDialogRef<AboutComponent>, private data: UFDataService) {
     }
 
     ngOnInit() {
-        UFDataService.search({
-            classNumber: 33,
-            semesterCode: 3
+        this.data.search({
+            classNumber: 11190,
+            semesterCode: 2191
+        }).subscribe(val => {
+            console.log("Value retrieved! ", val);
+        }, err => {
+            console.error("Something went wrong while searching! ", err);
         });
     }
 

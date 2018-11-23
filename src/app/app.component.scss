@@ -1,5 +1,18 @@
-mat-toolbar {
-    > button {
-        margin-left: 10px;
-    }
+.content {
+    display: flex;
+    flex-flow: column nowrap;
+
+    height: 100%;
+}
+
+.app-toolbar {
+
+}
+
+.main-content {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-content app-schedule-table {
+    height: 100%;
 }

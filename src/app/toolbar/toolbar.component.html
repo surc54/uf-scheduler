@@ -1,13 +1,20 @@
 <mat-toolbar color="primary">
-    <span>Scheduler {{pi}}</span>
+
+    <button mat-icon-button style="margin-right: 16px;" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span>Scheduler</span>
     <span class="fill-space"></span>
 
-    <button mat-icon-button (click)="click_addCourse()" matTooltip="Add course" matTooltipPosition="below">
+    <button class="action-btn" mat-icon-button (click)="click_addCourse()"
+            matTooltip="Add course" matTooltipPosition="below">
         <mat-icon>add</mat-icon>
     </button>
 
     <!--More Menu Button-->
-    <button mat-icon-button [matMenuTriggerFor]="toolbarMenu" matTooltip="More" matTooltipPosition="below">
+    <button class="action-btn" mat-icon-button [matMenuTriggerFor]="toolbarMenu"
+            matTooltip="More" matTooltipPosition="below">
         <mat-icon>more_vert</mat-icon>
     </button>
 

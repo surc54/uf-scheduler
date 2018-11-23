@@ -1,12 +1,23 @@
 export class Class {
     options: ClassOptions;
+    raw: Object;
 
     /**
      * Create class object
      */
-    constructor(options: ClassOptions) {
+    constructor(options: ClassOptions, raw: Object = {}) {
         this.options = options;
+
+        if (!this.options.colors) {
+            this.options.colors = {
+                background: "darkblue",
+                foreground: "white"
+            };
+        }
+
+        this.raw = raw;
     }
+
 
     get courseCode() {
         return this.options.courseCode;
@@ -65,4 +76,10 @@ interface ClassOptions {
     courseCode: string;
     instructors: string[];
     meetings: Meeting[];
+    colors?: ColorTemplate;
+}
+
+interface ColorTemplate {
+    background: string;
+    foreground: string;
 }

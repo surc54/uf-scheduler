@@ -14,7 +14,9 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatCardModule} from '@angular/material/card';
+import {MatTableModule} from '@angular/material/table';
 
 
 
@@ -33,7 +35,10 @@ import {MatTooltipModule} from '@angular/material/tooltip';
         MatBottomSheetModule,
         MatGridListModule,
         MatDialogModule,
-        MatTooltipModule
+        MatTooltipModule,
+        MatSidenavModule,
+        MatCardModule,
+        MatTableModule
     ]
 })
 export class MaterialComponentsModule {

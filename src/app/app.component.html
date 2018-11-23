@@ -1,3 +1,16 @@
-<app-toolbar></app-toolbar>
+<section class="content">
+    <app-toolbar class="app-toolbar" [sidebar]="sidebar"></app-toolbar>
 
-<router-outlet></router-outlet>
+    <mat-sidenav-container class="main-content">
+        <mat-sidenav #sidebar mode="side" opened style="width: 400px;">
+            <app-course-list></app-course-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <app-schedule-table></app-schedule-table>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+
+
+    <router-outlet></router-outlet>
+
+</section>
