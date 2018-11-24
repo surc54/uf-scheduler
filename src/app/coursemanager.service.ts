@@ -1,16 +1,18 @@
 import {Injectable} from "@angular/core";
 
 import {Class, Meeting} from "../models/Class";
-import {DomSanitizer} from "@angular/platform-browser";
+import {DomSanitizer, SafeStyle} from "@angular/platform-browser";
+import {SearchPreviewService} from "./search-preview.service";
 
 @Injectable({
     providedIn: "root"
 })
 export class CourseManagerService {
 
-    constructor(private _sanitizer: DomSanitizer) {
+    constructor(private _sanitizer: DomSanitizer,
+                private searchPreview: SearchPreviewService) {
         this.courses = [];
-        this.meetings = [];
+        this.meetingsNoTemp = [];
         this.colors = [
             {
                 name: "s_color_1",
@@ -48,7 +50,7 @@ export class CourseManagerService {
         //     name: "Sample Class 1",
         //     courseCode: "SMP0001",
         //     classNumber: CourseManagerService.customClassNumber--,
-        //     meetings: [
+        //     meetingsNoTemp: [
         //         new Meeting("M W F", 10, 10),
         //         new Meeting("F", 6, 7)
         //     ],
@@ -59,7 +61,9 @@ export class CourseManagerService {
     static customClassNumber = -99999;
 
     courses: Class[];
+    private meetingsNoTemp: SchedulerInfo[];
     meetings: SchedulerInfo[];
+    eCells = false;
 
     colors: ColorUsage[] = [];
 
@@ -94,42 +98,43 @@ export class CourseManagerService {
         return conflicts;
     }
 
-    getGridArea(m: Meeting) {
-        let rowStart: number, rowEnd: number, colStart: number, colEnd: number;
-        let d = m.days[0];
-        switch (d.toLowerCase()) {
-            case "m":
-                colStart = 3;
-                colEnd = 4;
-                break;
-            case "t":
-                colStart = 4;
-                colEnd = 5;
-                break;
-            case "w":
-                colStart = 5;
-                colEnd = 6;
-                break;
-            case "r":
-                colStart = 6;
-                colEnd = 7;
-                break;
-            case "f":
-                colStart = 7;
-                colEnd = 8;
-                break;
-            case "s":
-                colStart = 8;
-                colEnd = 9;
-                break;
-            default:
-                return null;
-        }
-
-        rowStart = Number(m.startPeriod) + 1;
-        rowEnd = Number(m.endPeriod) + 2;
-
-        return this._sanitizer.bypassSecurityTrustStyle(`${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`);
+        getGridArea(m: Meeting) {
+    //     let rowStart: number, rowEnd: number, colStart: number, colEnd: number;
+    //     let d = m.days[0];
+    //     switch (d.toLowerCase()) {
+    //         case "m":
+    //             colStart = 3;
+    //             colEnd = 4;
+    //             break;
+    //         case "t":
+    //             colStart = 4;
+    //             colEnd = 5;
+    //             break;
+    //         case "w":
+    //             colStart = 5;
+    //             colEnd = 6;
+    //             break;
+    //         case "r":
+    //             colStart = 6;
+    //             colEnd = 7;
+    //             break;
+    //         case "f":
+    //             colStart = 7;
+    //             colEnd = 8;
+    //             break;
+    //         case "s":
+    //             colStart = 8;
+    //             colEnd = 9;
+    //             break;
+    //         default:
+    //             return null;
+    //     }
+    //
+    //     rowStart = Number(m.startPeriod) + 1;
+    //     rowEnd = Number(m.endPeriod) + 2;
+    //
+    //     return this._sanitizer.bypassSecurityTrustStyle(`${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`);
+        return this.searchPreview.getGridArea(m);
     }
 
     addCourse(c: Class) {
@@ -142,6 +147,10 @@ export class CourseManagerService {
                 console.error("Class is conflicting with others in list. ", conflicts);
                 reject("Class conflicts with others in the list.");
             } else {
+                if (this.searchPreview.previewClass && this.searchPreview.previewClass.classNumber === c.classNumber) {
+                    this.searchPreview.unsetPreviewClass();
+                }
+
                 let color: ColorUsage = this.getAvailableColor();
                 c.options.colors.foreground = color.foreground;
                 c.options.colors.background = color.background;
@@ -219,10 +228,10 @@ export class CourseManagerService {
 
         if (!add) {
             let _debug_removed = 0;
-            for (let i = 0; i < this.meetings.length; i++) {
-                let m = this.meetings[i];
+            for (let i = 0; i < this.meetingsNoTemp.length; i++) {
+                let m = this.meetingsNoTemp[i];
                 if (!this.alreadyInCourseList(m.course.classNumber)) {
-                    this.meetings.splice(i, 1);
+                    this.meetingsNoTemp.splice(i, 1);
                     _debug_removed++;
                     i = -1;
                 }
@@ -244,16 +253,31 @@ export class CourseManagerService {
                         gridArea: this.getGridArea(m2)
                     };
                     result = (obj);
-                    this.meetings.push(result);
+                    this.meetingsNoTemp.push(result);
                 }
             }
         }
 
-        // this.meetings = result;
+        this.updateMeetings();
+        // this.meetingsNoTemp = result;
     }
 
-    getMeetings() {
-        return this.meetings;
+    updateMeetings() {
+        this.meetings = [];
+        this.meetings = this.meetings.concat(this.meetingsNoTemp);
+        if (this.searchPreview.previewClass) {
+            this.meetings = this.meetings.concat(this.searchPreview.meetings);
+        }
+        this.eCells = false;
+
+        for (let i = 0; i < this.meetings.length; i++) {
+            let m = this.meetings[i];
+            if (m.meeting.meetBegin > 11 || m.meeting.meetEnd > 11) {
+                this.eCells = true;
+                break;
+            }
+        }
+
     }
 
     alreadyInCourseList(c: Class | number) {
@@ -306,10 +330,10 @@ interface MeetingConflict {
     day: String;
 }
 
-interface SchedulerInfo {
+export interface SchedulerInfo {
     course: Class;
     meeting: Meeting;
-    gridArea: string;
+    gridArea: string | SafeStyle;
 }
 
 interface ColorUsage {

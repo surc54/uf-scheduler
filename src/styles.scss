@@ -8,6 +8,10 @@ body {
     transition: color 0.25s, background 0.25s;
 }
 
+.fill-space {
+    flex: 1 1 auto;
+}
+
 // schedule colors
 $s_color_1: "#3B8E30";
 $s_color_2: "#7C2774";

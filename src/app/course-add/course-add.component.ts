@@ -5,11 +5,61 @@ import {SearchOptions, UFDataService} from "../ufdata.service";
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators} from "@angular/forms";
 import {MatButton, MatSnackBar} from "@angular/material";
 import {HttpErrorResponse} from "@angular/common/http";
+import {animate, sequence, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
     selector: "app-course-add",
     templateUrl: "./course-add.component.html",
-    styleUrls: ["./course-add.component.scss"]
+    styleUrls: ["./course-add.component.scss"],
+    animations: [
+        trigger("sidebarItemEntryExit", [
+            state("void", style({
+                opacity: 0,
+                transform: "translateY(100px)"
+            })),
+            state("*", style({
+                opacity: 1,
+                transform: "translateY(0)"
+            })),
+            transition(":leave", sequence([
+                animate("0.25s 0s ease-in-out", style({
+                    opacity: 0,
+                    transform: "translateY(100px)"
+                })),
+                animate("0.25s 0s ease-in-out", style({
+                    opacity: 0,
+                    height: 0,
+                    paddingTop: 0,
+                    paddingRight: 0,
+                    paddingLeft: 0,
+                    paddingBottom: 0,
+                    marginTop: 0,
+                    marginRight: 0,
+                    marginLeft: 0,
+                    marginBottom: 0
+                })),
+            ])),
+            transition(":enter", [
+                animate("0s", style({
+                    opacity: 0,
+                    transform: "translateY(100px)",
+                    height: 0,
+                    paddingTop: 0,
+                    paddingRight: 0,
+                    paddingLeft: 0,
+                    paddingBottom: 0,
+                    marginTop: 0,
+                    marginRight: 0,
+                    marginLeft: 0,
+                    marginBottom: 0
+                })),
+                animate("0.25s 0.5s ease-in-out", style({
+                    opacity: 1,
+                    transform: "translateY(0)",
+                })),
+            ]),
+        ]),
+    ]
 })
 export class CourseAddComponent implements OnInit {
 

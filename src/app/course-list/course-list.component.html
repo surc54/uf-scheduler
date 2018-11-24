@@ -1,4 +1,10 @@
-<div class="content">
+<div class="content" @sidebarItemEntryExit>
+
+
+    <!--<app-class-card (selfRemove)="forceDelete($event)"></app-class-card>-->
+    <app-class-card @courseListParent *ngFor="let c of this.courseManager.courses" [class]="c"></app-class-card>
+
+
     <div @noCourseMessage *ngIf="this.courseManager.courses.length === 0" class="no-courses">
         <mat-icon>notes</mat-icon>
         <p class="mat-body-2">No courses found</p>
@@ -6,9 +12,4 @@
             Use the <mat-icon [inline]="true">add</mat-icon> button to add a course.
         </p>
     </div>
-
-    <!--<app-class-card (selfRemove)="forceDelete($event)"></app-class-card>-->
-    <app-class-card @courseListParent *ngFor="let c of this.courseManager.courses" [class]="c"></app-class-card>
-
-
 </div>

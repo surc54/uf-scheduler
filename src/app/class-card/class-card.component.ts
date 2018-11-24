@@ -3,6 +3,7 @@ import {Class} from "../../models/Class";
 import {CourseManagerService} from "../coursemanager.service";
 import {animate, sequence, style, transition, trigger} from "@angular/animations";
 import {MatSnackBar} from "@angular/material";
+import {SearchPreviewService} from "../search-preview.service";
 
 @Component({
     selector: "app-class-card",
@@ -21,11 +22,11 @@ import {MatSnackBar} from "@angular/material";
                 })),
             ]),
             transition(":leave", sequence([
-                animate("0.25s 0s ease-in-out", style({
+                animate("0.125s 0s ease-in-out", style({
                     transform: "translateX(-100px)",
                     opacity: 0
                 })),
-                animate("0.25s 0s ease-in-out", style({
+                animate("0.125s 0s ease-in-out", style({
                     transform: "translateX(-100px)",
                     opacity: 0,
                     height: 0,
@@ -63,7 +64,10 @@ export class ClassCardComponent implements OnInit {
         }
     });
 
-    constructor(protected courseManager: CourseManagerService, private snackBar: MatSnackBar, private nativeElement: ElementRef) {
+    constructor(protected courseManager: CourseManagerService,
+                private snackBar: MatSnackBar,
+                private nativeElement: ElementRef,
+                private searchPreview: SearchPreviewService) {
     }
 
     ngOnInit() {
@@ -114,11 +118,17 @@ export class ClassCardComponent implements OnInit {
     }
 
     preview(add: boolean) {
-        if (add && !this.courseManager.alreadyInCourseList(this.course.classNumber)) {
-            this.courseManager.addCourse(this.course);
-        } else if (!add && this.courseManager.alreadyInCourseList(this.course.classNumber)) {
-            this.courseManager.removeCourse(this.course.classNumber);
+        if (this.courseManager.alreadyInCourseList(this.course)) {
+            return;
         }
+        if (add) {
+            // this.courseManager.addCourse(this.course);
+            this.searchPreview.setPreviewClass(this.course);
+        } else {
+            // this.courseManager.removeCourse(this.course.classNumber);
+            this.searchPreview.unsetPreviewClass();
+        }
+        this.courseManager.updateMeetings();
     }
 
 }

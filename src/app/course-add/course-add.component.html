@@ -1,5 +1,5 @@
-<div class="content">
-    <h2 class="mat-h2">Search</h2>
+<div class="content" @sidebarItemEntryExit>
+    <!--<h2 class="mat-h2">Search</h2>-->
 
     <form (ngSubmit)="search($event)" [formGroup]="searchForm">
         <mat-form-field appearance="fill">
@@ -45,14 +45,14 @@
     <!--Using no-results class because format is exactly the same-->
     <div class="no-results intro-text" *ngIf="!searchedOnce && results.length === 0 && !searching">
         <mat-icon inline>search</mat-icon>
-        <h2 class="mat-h2">
+        <p class="mat-h2">
             Search to find courses
-        </h2>
+        </p>
     </div>
 
     <div class="no-results" *ngIf="searchedOnce && results.length === 0 && !searching">
         <mat-icon inline>error</mat-icon>
-        <h2 class="mat-h2">No courses found</h2>
+        <p class="mat-h2">No courses found</p>
     </div>
 
     <div class="results">

@@ -47,6 +47,17 @@ export class SearchInterceptorService implements HttpInterceptor {
                                 for (let meetingKey in section.meetTimes) {
                                     if (section.meetTimes.hasOwnProperty(meetingKey)) {
                                         let meeting = section.meetTimes[meetingKey];
+
+                                        let begin: string = meeting.meetPeriodBegin;
+                                        let end: string = meeting.meetPeriodEnd;
+
+                                        if (begin.charAt(0).toLowerCase() === 'e') {
+                                            meeting.meetPeriodBegin = 11 + Number(begin.slice(1, begin.length));
+                                        }
+                                        if (end.charAt(0).toLowerCase() === 'e') {
+                                            meeting.meetPeriodEnd = 11 + Number(end.slice(1, end.length));
+                                        }
+
                                         meetingList.push(new Meeting(meeting.meetDays, meeting.meetPeriodBegin, meeting.meetPeriodEnd));
                                     }
                                 }

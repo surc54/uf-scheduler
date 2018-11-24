@@ -6,6 +6,10 @@ mat-card {
     grid-template-columns: 50px auto 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
 
+    &.e-cells {
+        grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+    }
+
     > div.cell {
         //background: lightgray; // temp
         display: flex;
@@ -37,6 +41,10 @@ mat-card {
             &:hover {
                 box-shadow: none;
             }
+        }
+
+        &.preview {
+            opacity: 0.5 !important;
         }
     }
 }

@@ -80,7 +80,7 @@ interface ClassOptions {
     colors?: ColorTemplate;
 }
 
-interface ColorTemplate {
+export interface ColorTemplate {
     background: string;
     foreground: string;
 }

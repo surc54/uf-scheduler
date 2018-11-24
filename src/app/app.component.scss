@@ -16,3 +16,14 @@
 mat-sidenav-content app-schedule-table {
     height: 100%;
 }
+
+mat-toolbar.sidenav-toolbar {
+    z-index: 10;
+    position: relative;
+}
+
+.sidebar-inside-item {
+
+    height: calc(100vh - 128px);
+    overflow-y: auto;
+}
