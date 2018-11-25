@@ -8,6 +8,11 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class SearchPreviewService {
 
+    static savedSearchQuery: SearchQuery = {
+        semester: "2191"
+    };
+    static savedResults: Class[] = [];
+
     constructor(private _sanitizer: DomSanitizer) {
     }
 
@@ -104,4 +109,13 @@ export class SearchPreviewService {
         return this._sanitizer.bypassSecurityTrustStyle(`${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`);
     }
 
+}
+
+
+
+
+export interface SearchQuery {
+    semester?: string;
+    classNumber?: number;
+    courseCode?: string;
 }

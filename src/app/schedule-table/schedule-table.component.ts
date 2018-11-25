@@ -52,6 +52,7 @@ export class ScheduleTableComponent implements OnInit {
         }, 950);
 
         let ints: number[] = [11190, 11050, 19141, 19169, 16234, 16239];
+        ints = [];
         setTimeout(() => {
             for (let i = 0; i < ints.length; i++) {
                 let n = ints[i];

@@ -6,6 +6,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, 
 import {MatButton, MatSnackBar} from "@angular/material";
 import {HttpErrorResponse} from "@angular/common/http";
 import {animate, sequence, state, style, transition, trigger} from "@angular/animations";
+import {SearchPreviewService} from "../search-preview.service";
 
 @Component({
     selector: "app-course-add",
@@ -68,18 +69,18 @@ export class CourseAddComponent implements OnInit {
                 private snackBar: MatSnackBar) {
     }
 
-    protected results: Class[] = [];
+    protected results: Class[] = SearchPreviewService.savedResults;
 
     // tslint:disable-next-line
     searchForm = new FormGroup({
             semester: new FormControl(
-                "2191",
+                SearchPreviewService.savedSearchQuery.semester ? SearchPreviewService.savedSearchQuery.semester : "2191",
                 Validators.required),
             classNumber: new FormControl(
-                "",
+                SearchPreviewService.savedSearchQuery.classNumber ? SearchPreviewService.savedSearchQuery.classNumber : "",
                 CourseAddComponent.classNumberLengthValidator),
             courseCode: new FormControl(
-                "",
+                SearchPreviewService.savedSearchQuery.courseCode ? SearchPreviewService.savedSearchQuery.courseCode : "",
                 [
                     CourseAddComponent.courseCodeAlphaNumericValidator,
                     CourseAddComponent.courseCodeLengthValidator
@@ -170,10 +171,16 @@ export class CourseAddComponent implements OnInit {
 
         if (classNum.value && classNum.valid) {
             options.classNumber = classNum.value;
+            SearchPreviewService.savedSearchQuery.classNumber = classNum.value;
+        } else {
+            SearchPreviewService.savedSearchQuery.classNumber = null;
         }
 
         if (courseCode.value && courseCode.valid) {
             options.courseCode = courseCode.value;
+            SearchPreviewService.savedSearchQuery.courseCode = courseCode.value;
+        } else {
+            SearchPreviewService.savedSearchQuery.courseCode = null;
         }
 
         this.searching = true;
@@ -186,6 +193,7 @@ export class CourseAddComponent implements OnInit {
                 (val) => {
                     this.searching = false;
                     this.results = val;
+                    SearchPreviewService.savedResults = this.results;
                     this.snackBar.open(`Found ${val.length} class${val.length === 1 ? "" : "es"}.`, "", {
                         duration: 3000
                     });
@@ -208,9 +216,3 @@ export class CourseAddComponent implements OnInit {
 
 }
 
-
-interface SearchQuery {
-    semester?: string;
-    classNumber?: number;
-    courseCode?: string;
-}
