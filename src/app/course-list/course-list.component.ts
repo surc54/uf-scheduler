@@ -91,7 +91,7 @@ import {
 })
 export class CourseListComponent implements OnInit {
 
-    constructor(protected courseManager: CourseManagerService, private snackBar: MatSnackBar) {
+    constructor(public courseManager: CourseManagerService, private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {

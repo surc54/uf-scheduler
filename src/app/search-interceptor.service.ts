@@ -19,7 +19,12 @@ export class SearchInterceptorService implements HttpInterceptor {
         return next.handle(req).pipe(map(event => {
             if (event instanceof HttpResponse && event.headers.get("X-Request-Name") === "Class-Lookup") {
 
-                const data = event.body;
+                if (event.body.status === "error") {
+                    console.error(event.body.error.content || "No error details");
+                    throw Error(event.body.error.message);
+                }
+
+                const data = event.body.content || null;
                 const classList: Class[] = [];
 
                 if (data == null) {

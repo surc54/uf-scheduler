@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod --base-href /projects/scheduler/v1/ --deploy-url /projects/scheduler/v1/ --output-path ../../website/projects/scheduler/v1.1",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"

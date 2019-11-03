@@ -64,7 +64,7 @@ export class ClassCardComponent implements OnInit {
         }
     });
 
-    constructor(protected courseManager: CourseManagerService,
+    constructor(public courseManager: CourseManagerService,
                 private snackBar: MatSnackBar,
                 private nativeElement: ElementRef,
                 private searchPreview: SearchPreviewService) {

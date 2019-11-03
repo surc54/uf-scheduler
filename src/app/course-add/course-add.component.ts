@@ -69,12 +69,12 @@ export class CourseAddComponent implements OnInit {
                 private snackBar: MatSnackBar) {
     }
 
-    protected results: Class[] = SearchPreviewService.savedResults;
+    results: Class[] = SearchPreviewService.savedResults;
 
     // tslint:disable-next-line
     searchForm = new FormGroup({
             semester: new FormControl(
-                SearchPreviewService.savedSearchQuery.semester ? SearchPreviewService.savedSearchQuery.semester : "2191",
+                SearchPreviewService.savedSearchQuery.semester ? SearchPreviewService.savedSearchQuery.semester : "2201",
                 Validators.required),
             classNumber: new FormControl(
                 SearchPreviewService.savedSearchQuery.classNumber ? SearchPreviewService.savedSearchQuery.classNumber : "",

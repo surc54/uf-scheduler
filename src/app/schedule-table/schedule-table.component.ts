@@ -41,8 +41,8 @@ export class ScheduleTableComponent implements OnInit {
     anim = "sty1";
     eCells = false;
 
-    constructor(protected courseManager: CourseManagerService,
-                protected searchPreview: SearchPreviewService,
+    constructor(public courseManager: CourseManagerService,
+                public searchPreview: SearchPreviewService,
                 private data: UFDataService) {
     }
 

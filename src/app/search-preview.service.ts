@@ -1,20 +1,18 @@
-import {Injectable} from "@angular/core";
-import {Class, ColorTemplate, Meeting} from "../models/Class";
-import {CourseManagerService, SchedulerInfo} from "./coursemanager.service";
-import {DomSanitizer} from "@angular/platform-browser";
+import { Injectable } from "@angular/core";
+import { Class, ColorTemplate, Meeting } from "../models/Class";
+import { CourseManagerService, SchedulerInfo } from "./coursemanager.service";
+import { DomSanitizer } from "@angular/platform-browser";
 
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class SearchPreviewService {
-
     static savedSearchQuery: SearchQuery = {
-        semester: "2191"
+        semester: "2201",
     };
     static savedResults: Class[] = [];
 
-    constructor(private _sanitizer: DomSanitizer) {
-    }
+    constructor(private _sanitizer: DomSanitizer) {}
 
     previewClass: Class;
     private previousColors: ColorTemplate;
@@ -29,7 +27,7 @@ export class SearchPreviewService {
         let colors = this.previewClass.options.colors;
         this.previousColors = {
             background: colors.background,
-            foreground: colors.foreground
+            foreground: colors.foreground,
         };
         colors.background = "black";
         colors.foreground = "white";
@@ -41,7 +39,7 @@ export class SearchPreviewService {
         if (this.previewClass) {
             this.previewClass.options.colors = {
                 background: this.previousColors.background,
-                foreground: this.previousColors.foreground
+                foreground: this.previousColors.foreground,
             };
         }
         this.meetings = [];
@@ -64,7 +62,7 @@ export class SearchPreviewService {
                 result = {
                     course: this.previewClass,
                     meeting: m2,
-                    gridArea: this.getGridArea(m2)
+                    gridArea: this.getGridArea(m2),
                 };
                 this.meetings.push(result);
             }
@@ -106,13 +104,11 @@ export class SearchPreviewService {
         rowStart = Number(m.startPeriod) + 1;
         rowEnd = Number(m.endPeriod) + 2;
 
-        return this._sanitizer.bypassSecurityTrustStyle(`${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`);
+        return this._sanitizer.bypassSecurityTrustStyle(
+            `${rowStart} / ${colStart} / ${rowEnd} / ${colEnd}`
+        );
     }
-
 }
-
-
-
 
 export interface SearchQuery {
     semester?: string;

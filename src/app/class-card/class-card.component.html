@@ -11,6 +11,7 @@
         <mat-divider class="header-content-divider"></mat-divider>
         <div class="instructor-info">
             <strong>Instructor(s): </strong>
+            <span *ngFor="let i of course.instructors">{{i}}, </span>
             <app-class-card-instructor></app-class-card-instructor>
         </div>
     </mat-card-content>

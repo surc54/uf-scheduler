@@ -1,17 +1,15 @@
-import {Injectable} from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, of} from "rxjs";
-import {Class, Meeting} from "../models/Class";
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { Observable, of } from "rxjs";
+import { Class, Meeting } from "../models/Class";
 
 @Injectable({
-    providedIn: "root"
+    providedIn: "root",
 })
 export class UFDataService {
-
     static sampleClassNum = 99999;
 
-    constructor(private http: HttpClient) {
-    }
+    constructor(private http: HttpClient) {}
 
     static validateCourseCode(courseCode: string) {
         const errors: string[] = [];
@@ -43,7 +41,7 @@ export class UFDataService {
 
     search(options: SearchOptions) {
         if (!options.classNumber && !options.courseCode) {
-            return Observable.create((obs) => {
+            return Observable.create(obs => {
                 obs.error("No course specific options specified");
             });
         }
@@ -73,7 +71,7 @@ export class UFDataService {
         }
 
         if (errors.length !== 0) {
-            return Observable.create((obs) => {
+            return Observable.create(obs => {
                 for (let i = 0; i < errors.length; i++) {
                     obs.error(errors[i]);
                 }
@@ -87,20 +85,32 @@ export class UFDataService {
             courseCode: "SMPXXXX",
             instructors: ["Sample Teacher"],
             meetings: [
-                new Meeting(Math.random() > 0.5 ? "M W F" : "T R", t_beginPeriod,
-                    Math.random() > 0.5 || t_beginPeriod === 11 ? t_beginPeriod : t_beginPeriod + 1)
-            ]
+                new Meeting(
+                    Math.random() > 0.5 ? "M W F" : "T R",
+                    t_beginPeriod,
+                    Math.random() > 0.5 || t_beginPeriod === 11
+                        ? t_beginPeriod
+                        : t_beginPeriod + 1
+                ),
+            ],
         });
 
         // return of([c]); // sample
 
-
-
-        return this.http.get("http://localhost/lookup", {
-            params: {
-                json: JSON.stringify(json)
+        return this.http.get(
+            "https://www.hadithya.com/projects/scheduler/lookup",
+            {
+                params: new HttpParams()
+                    .set("semester", String(options.semesterCode))
+                    .set("classNumber", String(options.classNumber || ""))
+                    .set("courseCode", options.courseCode || ""),
+                // params: {
+                //     semester: options.semesterCode,
+                //     classNumber: options.classNumber || null,
+                //     courseCode: options.courseCode || null
+                // }
             }
-        });
+        );
 
         // Validation testing
         // console.log("Validation of bigboi: " + this.validateCourseCode("bigboi"));
@@ -108,7 +118,6 @@ export class UFDataService {
         // console.log("Validation of <nothing>: " + this.validateCourseCode(""));
         // console.log("Validation of >something<: " + this.validateCourseCode(">something<"));
     }
-
 }
 
 export interface SearchOptions {
