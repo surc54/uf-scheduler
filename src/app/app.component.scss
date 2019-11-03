@@ -1,0 +1,29 @@
+.content {
+    display: flex;
+    flex-flow: column nowrap;
+
+    height: 100%;
+}
+
+.app-toolbar {
+
+}
+
+.main-content {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-content app-schedule-table {
+    height: 100%;
+}
+
+mat-toolbar.sidenav-toolbar {
+    z-index: 10;
+    position: relative;
+}
+
+.sidebar-inside-item {
+
+    height: calc(100vh - 128px);
+    overflow-y: auto;
+}

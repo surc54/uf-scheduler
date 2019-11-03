@@ -1,0 +1,127 @@
+<div class="content" @sidebarItemEntryExit>
+    <!--<h2 class="mat-h2">Search</h2>-->
+
+    <form (ngSubmit)="search($event)" [formGroup]="searchForm">
+        <mat-form-field appearance="fill">
+            <mat-label>Semester</mat-label>
+            <mat-select
+                required
+                name="semester"
+                value="2201"
+                formControlName="semester"
+            >
+                <mat-option value="2191">
+                    Spring 2019
+                </mat-option>
+                <mat-option value="2198">
+                    Fall 2019
+                </mat-option>
+                <mat-option value="2201">
+                    Spring 2020
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Class Number</mat-label>
+            <input
+                matInput
+                type="number"
+                maxlength="5"
+                name="classNumber"
+                formControlName="classNumber"
+                autocomplete="off"
+            />
+            <mat-error
+                *ngIf="
+                    searchForm.get('classNumber') &&
+                    searchForm.get('classNumber').errors &&
+                    searchForm.get('classNumber').errors.notFiveChars
+                "
+            >
+                Must have length of 5
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Course Code</mat-label>
+            <input
+                matInput
+                type="text"
+                maxlength="10"
+                name="courseCode"
+                formControlName="courseCode"
+                autocomplete="off"
+            />
+            <mat-error
+                *ngIf="
+                    searchForm.get('courseCode') &&
+                    searchForm.get('courseCode').errors &&
+                    searchForm.get('courseCode').errors.notAlphaNumeric
+                "
+            >
+                Must be alphanumeric
+            </mat-error>
+            <mat-error
+                *ngIf="
+                    searchForm.get('courseCode') &&
+                    searchForm.get('courseCode').errors &&
+                    searchForm.get('courseCode').errors.invalidLength
+                "
+            >
+                Must have a length between 4 and 10
+            </mat-error>
+        </mat-form-field>
+        <mat-error
+            class="noSpecifier"
+            *ngIf="
+                searchForm.errors?.noSpecifier &&
+                (searchForm.touched || searchForm.dirty)
+            "
+        >
+            You must provide either class number or course code.
+        </mat-error>
+        <div class="form-actions">
+            <button mat-button type="reset">Clear</button>
+            <button
+                mat-raised-button
+                color="accent"
+                type="submit"
+                [disabled]="!searchForm.valid || searching"
+            >
+                Search
+            </button>
+        </div>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div class="spinner-wrapper" *ngIf="searching">
+        <mat-spinner diameter="50" color="accent"></mat-spinner>
+    </div>
+
+    <!--Using no-results class because format is exactly the same-->
+    <div
+        class="no-results intro-text"
+        *ngIf="!searchedOnce && results.length === 0 && !searching"
+    >
+        <mat-icon inline>search</mat-icon>
+        <p class="mat-h2">
+            Search to find courses
+        </p>
+    </div>
+
+    <div
+        class="no-results"
+        *ngIf="searchedOnce && results.length === 0 && !searching"
+    >
+        <mat-icon inline>error</mat-icon>
+        <p class="mat-h2">No courses found</p>
+    </div>
+
+    <div class="results">
+        <app-class-card
+            *ngFor="let c of results"
+            [class]="c"
+            footer="IN_SEARCH"
+        ></app-class-card>
+    </div>
+</div>

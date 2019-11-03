@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+
+    <button mat-icon-button style="margin-right: 16px;" (click)="toggleSidebar()">
+        <mat-icon>menu</mat-icon>
+    </button>
+
+    <span>Scheduler</span>
+    <span class="fill-space"></span>
+
+    <!--Old Add Button (moved to sidebar)-->
+    <!--button class="action-btn" mat-icon-button (click)="click_addCourse()"
+            matTooltip="Add course" matTooltipPosition="below">
+        <mat-icon>add</mat-icon>
+    </button-->
+
+    <button mat-button (click)="click_about()">
+        ABOUT
+    </button>
+
+    <!--More Menu Button-->
+    <button class="action-btn" mat-icon-button [matMenuTriggerFor]="toolbarMenu"
+            matTooltip="More" matTooltipPosition="below">
+        <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <!--More Menu-->
+    <mat-menu #toolbarMenu="matMenu">
+        <!--Import Button-->
+        <button mat-menu-item>
+            <mat-icon>cloud_upload</mat-icon>
+
+            <!--Using inline styling to have min-width for menu-->
+            <span style="display: inline-block;min-width:100px;">Import</span>
+        </button>
+
+        <!--Export Button-->
+        <button mat-menu-item>
+            <mat-icon>cloud_download</mat-icon>
+            <span>Export</span>
+        </button>
+
+
+        <mat-divider></mat-divider>
+
+        <!--About Button-->
+        <button mat-menu-item (click)="click_about()">
+            <mat-icon>info</mat-icon>
+            <span>About</span>
+        </button>
+
+    </mat-menu>
+</mat-toolbar>
