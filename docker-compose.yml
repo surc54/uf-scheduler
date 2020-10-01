@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  ui:
+    build: ./
+    environment:
+      - VIRTUAL_HOST=scheduler.localhost
+      - VIRTUAL_PORT=3000
+    expose:
+      - "3000"
+    volumes:
+      - ./:/app:delegated
+      - /app/node_modules
+    hostname: scheduler.localhost
+    depends_on:
+      - nginx-proxy
+    networks:
+      frontend:
+      backend:
+        aliases:
+          - scheduler.localhost
+
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      frontend:
+      backend:
+
+networks:
+  frontend:
+  backend:
