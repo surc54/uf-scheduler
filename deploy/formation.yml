@@ -312,12 +312,18 @@ Resources:
                   - s3:GetObjectVersionAcl
                   - s3:GetObjectVersionTagging
                   - s3:PutObject
+                  - s3:DeleteObject
                 Resource:
                   - !Join
                     - ''
                     - - !GetAtt PipelineArtifactBucket.Arn
                       - '/*'
                   - !GetAtt PipelineArtifactBucket.Arn
+                  - !Join
+                    - ''
+                    - - !GetAtt UIBucket.Arn
+                      - '/*'
+                  - !GetAtt UIBucket.Arn
               - Effect: Allow
                 Action:
                   - codebuild:CreateReportGroup
@@ -351,6 +357,16 @@ Resources:
                       - :log-group:/aws/codebuild/
                       - SchedulerBuild
                       - ':*'
+              - Effect: Allow
+                Action:
+                  - cloudfront:CreateInvalidation
+                Resource:
+                  - !Join
+                    - ''
+                    - - 'arn:aws:cloudfront::'
+                      - !Ref AWS::AccountId
+                      - :distribution/
+                      - !Ref UICloudFrontDistro
     Metadata:
       'AWS::CloudFormation::Designer':
         id: 3f793397-123e-40a5-a07d-13e1b6b52adf
