@@ -379,6 +379,12 @@ Resources:
           - Name: VUE_APP_API_HOST
             Type: PLAINTEXT
             Value: https://www.hadithya.com/api
+          - Name: DEPLOYMENT_BUCKET
+            Type: PLAINTEXT
+            Value: !Ref UIBucket
+          - Name: DISTRIBUTION_ID
+            Type: PLAINTEXT
+            Value: !Ref UICloudFrontDistro
         Image: "aws/codebuild/standard:4.0"
         ImagePullCredentialsType: CODEBUILD
       QueuedTimeoutInMinutes: 480
