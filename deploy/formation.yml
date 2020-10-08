@@ -1,0 +1,462 @@
+AWSTemplateFormatVersion: 2010-09-09
+Metadata:
+  'AWS::CloudFormation::Designer':
+    8f56826a-d61b-43b4-bf3a-460407152daf:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 930
+        'y': 90
+      z: 1
+      embeds: []
+    ecb09584-c225-40a7-9fc3-dc617105e55f:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 810
+        'y': 90
+      z: 1
+      embeds: []
+      isassociatedwith:
+        - 8f56826a-d61b-43b4-bf3a-460407152daf
+    98ab6deb-1bd5-4046-b64e-52d11af0a3a9:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 690
+        'y': 90
+      z: 1
+      embeds: []
+    204d0e0d-f9c4-48a0-baf2-c0cca62698c4:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 750
+        'y': 180
+      z: 1
+      embeds: []
+    0d931a1e-3af9-4323-9477-afa5d54cf3f9:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 510
+        'y': 30
+      z: 1
+      embeds: []
+    3f793397-123e-40a5-a07d-13e1b6b52adf:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 690
+        'y': -110
+      z: 1
+      embeds: []
+    d40f2276-053d-4785-a3ae-34871a6a5245:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 460
+        'y': -120
+      z: 1
+      embeds: []
+    8d8ae8a6-00d6-49f5-9054-581f977efeb4:
+      size:
+        width: 60
+        height: 60
+      position:
+        x: 570
+        'y': -40
+      z: 1
+      embeds: []
+      isassociatedwith:
+        - 0d931a1e-3af9-4323-9477-afa5d54cf3f9
+
+
+#
+# RESOURCES
+#
+Resources:
+  #
+  # UI BUCKET
+  #
+  UIBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: PublicRead
+      BucketName: scheduler.surc.dev
+      WebsiteConfiguration:
+        ErrorDocument: index.html
+        IndexDocument: index.html
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 8f56826a-d61b-43b4-bf3a-460407152daf
+
+  #
+  # UI BUCKET POLICY
+  #
+  UIBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref UIBucket
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:GetObject'
+            Effect: Allow
+            Principal: '*'
+            Resource: !Join
+              - ''
+              - - !GetAtt UIBucket.Arn
+                - /*
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: ecb09584-c225-40a7-9fc3-dc617105e55f
+
+  #
+  # UI SSL CERTIFICATE
+  #
+  UICertificate:
+    Type: 'AWS::CertificateManager::Certificate'
+    Properties:
+      DomainName: scheduler.surc.dev
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: scheduler.surc.dev
+          ValidationDomain: surc.dev
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 98ab6deb-1bd5-4046-b64e-52d11af0a3a9
+
+  #
+  # UI CLOUDFRONT DISTRIBUTION
+  #
+  UICloudFrontDistro:
+    Type: 'AWS::CloudFront::Distribution'
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Aliases:
+          - scheduler.surc.dev
+        CustomErrorResponses:
+          - ErrorCode: 404
+            ResponseCode: 404
+            ResponsePagePath: '/index.html'
+        CacheBehaviors:
+          - AllowedMethods:
+              - GET
+              - HEAD
+            CachedMethods:
+              - GET
+              - HEAD
+            CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+            PathPattern: '*'
+            ViewerProtocolPolicy: redirect-to-https
+            TargetOriginId: s3-scheduler
+        DefaultCacheBehavior:
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          ViewerProtocolPolicy: redirect-to-https
+          TargetOriginId: s3-scheduler
+        DefaultRootObject: index.html
+        IPV6Enabled: true
+        HttpVersion: http2
+        Origins:
+          - CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+            DomainName: !GetAtt UIBucket.DomainName
+            Id: s3-scheduler
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref UICertificate
+          MinimumProtocolVersion: TLSv1.2_2019
+          SslSupportMethod: sni-only
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 204d0e0d-f9c4-48a0-baf2-c0cca62698c4
+
+  #
+  # PIPELINE ARTIFACT BUCKET
+  #
+  PipelineArtifactBucket:
+    Type: 'AWS::S3::Bucket'
+    Properties:
+      AccessControl: BucketOwnerRead
+      BucketName: scheduler-pipeline-artifacts
+      VersioningConfiguration:
+        Status: Enabled
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 0d931a1e-3af9-4323-9477-afa5d54cf3f9
+
+  #
+  # PIPELINE ARTIFACT BUCKET POLICY
+  #
+  PipelineArtifactBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      Bucket: !Ref PipelineArtifactBucket
+      PolicyDocument:
+        Statement:
+          - Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              - 's3:GetObjectVersion'
+            Principal:
+              AWS:
+                - !GetAtt PipelineRole.Arn
+            Resource: !Join
+              - ''
+              - - !GetAtt PipelineArtifactBucket.Arn
+                - /*
+            Effect: Allow
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 8d8ae8a6-00d6-49f5-9054-581f977efeb4
+
+  #
+  # PIPELINE IAM ROLE
+  #
+  PipelineRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Description: Role for the scheduler project's pipeline
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codepipeline.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: PipelineRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObjectAcl
+                  - s3:GetObject
+                  - s3:GetObjectVersionTagging
+                  - s3:PutObjectVersionAcl
+                  - s3:GetObjectVersionAcl
+                  - s3:PutObjectAcl
+                  - s3:GetObjectVersion
+                Resource:
+                  - !Join
+                    - ''
+                    - - !GetAtt PipelineArtifactBucket.Arn
+                      - '/*'
+                  - !GetAtt PipelineArtifactBucket.Arn
+              - Effect: Allow
+                Action:
+                  - 'codestar-connections:PassConnection'
+                  - 'codestar-connections:GetConnection'
+                  - 'codestar-connections:UseConnection'
+                Resource: !Ref GithubConnectionArn
+              - Effect: Allow
+                Action:
+                  - codebuild:BatchGetBuilds
+                  - codebuild:StartBuild
+                  - codebuild:BatchGetBuildBatches
+                  - codebuild:StartBuildBatch
+                Resource: '*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3f793397-123e-40a5-a07d-13e1b6b52adf
+
+  #
+  # CODEBUILD ROLE
+  #
+  BuildUIRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      Description: Role for the UF Scheduler's CodeBuild
+      Path: /
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - codebuild.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: CodeBuildRolePolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetBucketAcl
+                  - s3:GetBucketLocation
+                  - s3:GetObject
+                  - s3:GetObjectAcl
+                  - s3:GetObjectVersion
+                  - s3:GetObjectVersionAcl
+                  - s3:GetObjectVersionTagging
+                  - s3:PutObject
+                Resource:
+                  - !Join
+                    - ''
+                    - - !GetAtt PipelineArtifactBucket.Arn
+                      - '/*'
+                  - !GetAtt PipelineArtifactBucket.Arn
+              - Effect: Allow
+                Action:
+                  - codebuild:CreateReportGroup
+                  - codebuild:CreateReport
+                  - codebuild:UpdateReport
+                  - codebuild:BatchPutTestCases
+                  - codebuild:BatchPutCodeCoverages
+                Resource: !Join
+                  - ''
+                  - - 'arn:aws:codebuild:us-east-1:'
+                    - !Ref AWS::AccountId
+                    - :report-group/
+                    - SchedulerBuild
+                    - '-*'
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource:
+                  - !Join
+                    - ''
+                    - - 'arn:aws:logs:us-east-1:'
+                      - !Ref AWS::AccountId
+                      - :log-group:/aws/codebuild/
+                      - SchedulerBuild
+                  - !Join
+                    - ''
+                    - - 'arn:aws:logs:us-east-1:'
+                      - !Ref AWS::AccountId
+                      - :log-group:/aws/codebuild/
+                      - SchedulerBuild
+                      - ':*'
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: 3f793397-123e-40a5-a07d-13e1b6b52adf
+
+
+  #
+  # CODEBUILD PROJECT
+  #
+  BuildUI:
+    Type: 'AWS::CodeBuild::Project'
+    Properties:
+      Description: "Build UF Scheduler's UI"
+      Name: SchedulerBuild
+      Artifacts:
+        Type: CODEPIPELINE
+        EncryptionDisabled: false
+      ServiceRole: !GetAtt BuildUIRole.Arn
+      Source:
+        Type: CODEPIPELINE
+        BuildSpec: 'deploy/buildspec.prod.yml'
+        InsecureSsl: false
+      Environment:
+        ComputeType: BUILD_GENERAL1_SMALL
+        Type: LINUX_CONTAINER
+        EnvironmentVariables:
+          - Name: VUE_APP_API_HOST
+            Type: PLAINTEXT
+            Value: https://www.hadithya.com/api
+        Image: "aws/codebuild/standard:4.0"
+        ImagePullCredentialsType: CODEBUILD
+      QueuedTimeoutInMinutes: 480
+      TimeoutInMinutes: 5
+
+
+  #
+  # PIPELINE
+  #
+  Pipeline:
+    Type: 'AWS::CodePipeline::Pipeline'
+    Properties:
+      Name: SchedulerPipeline
+      RoleArn: !GetAtt PipelineRole.Arn
+      ArtifactStore:
+        Type: S3
+        Location: !Ref PipelineArtifactBucket
+      Stages:
+        - Name: Source
+          Actions:
+            - Name: Clone
+              RunOrder: 1
+              ActionTypeId:
+                Category: Source
+                Owner: AWS
+                Provider: CodeStarSourceConnection
+                Version: '1'
+              Configuration:
+                ConnectionArn: !Ref GithubConnectionArn
+                FullRepositoryId: surc54/uf-scheduler
+                BranchName: v2/master
+              OutputArtifacts:
+                - Name: Code
+        - Name: Build
+          Actions:
+            - Name: Build
+              RunOrder: 2
+              ActionTypeId:
+                Category: Build
+                Owner: AWS
+                Provider: CodeBuild
+                Version: '1'
+              Configuration:
+                ProjectName: !Ref BuildUI
+                PrimarySource: Code
+              InputArtifacts:
+                - Name: Code
+              OutputArtifacts:
+                - Name: CodeBuildOutput
+      RestartExecutionOnUpdate: true
+    Metadata:
+      'AWS::CloudFormation::Designer':
+        id: d40f2276-053d-4785-a3ae-34871a6a5245
+
+#
+# OUTPUTS
+#
+Outputs:
+  S3WebsiteURL:
+    Value: !GetAtt UIBucket.WebsiteURL
+    Description: URL for website hosted on S3
+  S3BucketSecureURL:
+    Value: !Join
+      - ''
+      - - 'https://'
+        - !GetAtt UIBucket.DomainName
+    Description: Name of S3 bucket to hold website content
+  CloudFrontURL:
+    Value: !Join
+      - ''
+      - - 'https://'
+        - !GetAtt UICloudFrontDistro.DomainName
+    Description: CloudFront URL
+
+#
+# PARAMETERS
+#
+Parameters:
+  GithubConnectionArn:
+    Description: Github Connection ARN
+    Type: String
