@@ -1,30 +1,30 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view/>
+  <router-view v-slot="{ Component }">
+    <transition mode="out-in" :name="transitionName">
+      <component :is="Component" class="h-full" :key="$route.path" />
+    </transition>
+  </router-view>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+const pathLength = (path: string) => {
+  return path === '/' ? 1 : path.split('/').length
 }
 
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+export default defineComponent({
+  data () {
+    return {
+      transitionName: 'anim-slide-right'
+    }
+  },
+  watch: {
+    $route (to, from) {
+      const toDepth = pathLength(to.path)
+      const fromDepth = pathLength(from.path)
+      this.transitionName = toDepth < fromDepth ? 'anim-slide-right' : 'anim-slide-left'
     }
   }
-}
-</style>
+})
+</script>

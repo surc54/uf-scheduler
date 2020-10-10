@@ -1,0 +1,19 @@
+@import 'tailwind';
+@import 'ripple';
+@import 'animations';
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  height: 100%;
+
+  body {
+    height: 100%;
+
+    div#app {
+      height: 100%;
+    }
+  }
+}
