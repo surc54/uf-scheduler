@@ -3,12 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import { RippleDirective } from './directives'
-
-// Turn on service-worker later.
-// import './registerServiceWorker'
+import { unregisterServiceWorker } from './registerServiceWorker'
 
 // Global styles
 import './assets/styles/global.scss'
+
+unregisterServiceWorker()
 
 createApp(App)
   .use(store)

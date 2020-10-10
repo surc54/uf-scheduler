@@ -146,7 +146,7 @@ Resources:
           - scheduler.surc.dev
         CustomErrorResponses:
           - ErrorCode: 404
-            ResponseCode: 404
+            ResponseCode: 200
             ResponsePagePath: '/index.html'
         CacheBehaviors:
           - AllowedMethods:
