@@ -35,6 +35,14 @@ export const registerServiceWorker = () => {
 
 export const unregisterServiceWorker = () => {
   if (process.env.NODE_ENV === 'production') {
+    console.log('Unregistering any service workers...')
+
     unregister()
+
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+      for (const registration of registrations) {
+        registration.unregister()
+      }
+    })
   }
 }
