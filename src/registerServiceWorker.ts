@@ -38,11 +38,5 @@ export const unregisterServiceWorker = () => {
     console.log('Unregistering any service workers...')
 
     unregister()
-
-    navigator.serviceWorker.getRegistrations().then(function (registrations) {
-      for (const registration of registrations) {
-        registration.unregister()
-      }
-    })
   }
 }

@@ -9,5 +9,11 @@ module.exports = {
         args[0].title = 'UF Scheduler'
         return args
       })
+  },
+  pwa: {
+    workboxPluginMode: 'InjectManifest',
+    workboxOptions: {
+      swSrc: 'service-worker.js'
+    }
   }
 }
