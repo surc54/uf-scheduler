@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12.x
+  pre_build:
+    commands:
+      - npm ci
+  build:
+    commands:
+      - echo Build started on `date`
+      - |
+        npm run build | tee build.log
+        if grep -E "Compiled with warnings" build.log; then
+          exit 1
+        fi
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Uploading to S3 Bucket
+      - aws s3 sync --delete --cache-control max-age=0,no-cache,no-store,must-revalidate build/ "s3://${DEPLOYMENT_BUCKET}"
+      - echo Upload completed on `date`
+      - echo Creating cache invalidation
+      - aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths "/*"
+      - echo Invalidation completed on `date`
