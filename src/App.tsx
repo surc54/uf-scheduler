@@ -15,6 +15,7 @@ const App: React.FC = () => {
         >
           Learn React
         </a>
+        <span className="text-red-400 text-xl">HELLOWORLD</span>
       </header>
     </div>
   );
