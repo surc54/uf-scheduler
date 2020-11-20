@@ -6,6 +6,7 @@ module.exports = {
     './src/**/*.jsx',
     './src/**/*.js'
   ],
+  important: "div#root",
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
