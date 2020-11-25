@@ -17,5 +17,5 @@ ReactDOM.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 
 if (process.env.NODE_ENV === "development") {
-  reportWebVitals(console.log);
+  reportWebVitals(console.log)
 }

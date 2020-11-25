@@ -10,12 +10,10 @@ const AboutView: React.FC = () => {
       }
     },
     hidden: {
-      opacity: 0,
-      transition: {
-        staggerChildren: 0.1
-      }
+      opacity: 0
     }
   }
+
   const contentVariants: Variants = {
     visible: {
       opacity: 1,
@@ -26,6 +24,7 @@ const AboutView: React.FC = () => {
       translateY: 100
     }
   }
+
   return (
     <motion.div
       className="text-justify"

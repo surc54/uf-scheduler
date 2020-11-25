@@ -1,6 +1,6 @@
 import { Breadcrumbs, Link, makeStyles } from "@material-ui/core"
 import clsx from "clsx"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import React from "react"
 import { Link as RouterLink, Route, RouteProps } from "react-router-dom"
 
@@ -42,7 +42,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
     <Route
       {...others}
       render={matchProps => (
-        <div className="pt-12 pb-8 grid grid-cols-1 lg:grid-cols-2 min-h-full px-4 container mx-auto">
+        <motion.div className="pt-12 pb-8 grid grid-cols-1 lg:grid-cols-2 min-h-full px-4 container mx-auto">
           <div className="hidden lg:block"></div>
           <div className="flex flex-col justify-center items-start h-full">
             {breadcrumbs.length !== 0 ? crumbs : null}
@@ -50,7 +50,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
               layout
               layoutId="simpleLayoutTitle"
               className={clsx(
-                "font-bold text-5xl overflow-hidden mb-4 w-full",
+                "font-bold text-5xl overflow-hidden mb-4",
                 classes.title
               )}
             >
@@ -59,7 +59,7 @@ const SimpleLayout: React.FC<SimpleLayoutProps> = ({
 
             <Component {...matchProps} />
           </div>
-        </div>
+        </motion.div>
       )}
     />
   )

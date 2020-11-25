@@ -1,4 +1,5 @@
 import { createMuiTheme, ThemeProvider } from "@material-ui/core"
+import { AnimatePresence } from "framer-motion"
 import React from "react"
 import { Route, Router, Switch } from "react-router-dom"
 import history from "./utils/history"
@@ -27,10 +28,25 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <Router history={history}>
-        <Switch>
-          <Route path="/app" render={() => <ApplicationView />} />
-          <Route path="/" render={() => <LandingView />} />
-        </Switch>
+        <Route
+          render={({ location }) => (
+            <>
+              <AnimatePresence exitBeforeEnter>
+                <Switch
+                  location={location}
+                  key={
+                    location.pathname.startsWith("/app")
+                      ? "Application"
+                      : "Landing"
+                  }
+                >
+                  <Route path="/app" component={ApplicationView} />
+                  <Route path="/" component={LandingView} />
+                </Switch>
+              </AnimatePresence>
+            </>
+          )}
+        />
       </Router>
     </ThemeProvider>
   )
