@@ -1,83 +1,4 @@
 AWSTemplateFormatVersion: 2010-09-09
-Metadata:
-  'AWS::CloudFormation::Designer':
-    8f56826a-d61b-43b4-bf3a-460407152daf:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 930
-        'y': 90
-      z: 1
-      embeds: []
-    ecb09584-c225-40a7-9fc3-dc617105e55f:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 810
-        'y': 90
-      z: 1
-      embeds: []
-      isassociatedwith:
-        - 8f56826a-d61b-43b4-bf3a-460407152daf
-    98ab6deb-1bd5-4046-b64e-52d11af0a3a9:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 690
-        'y': 90
-      z: 1
-      embeds: []
-    204d0e0d-f9c4-48a0-baf2-c0cca62698c4:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 750
-        'y': 180
-      z: 1
-      embeds: []
-    0d931a1e-3af9-4323-9477-afa5d54cf3f9:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 510
-        'y': 30
-      z: 1
-      embeds: []
-    3f793397-123e-40a5-a07d-13e1b6b52adf:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 690
-        'y': -110
-      z: 1
-      embeds: []
-    d40f2276-053d-4785-a3ae-34871a6a5245:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 460
-        'y': -120
-      z: 1
-      embeds: []
-    8d8ae8a6-00d6-49f5-9054-581f977efeb4:
-      size:
-        width: 60
-        height: 60
-      position:
-        x: 570
-        'y': -40
-      z: 1
-      embeds: []
-      isassociatedwith:
-        - 0d931a1e-3af9-4323-9477-afa5d54cf3f9
-
 
 #
 # RESOURCES
@@ -94,9 +15,6 @@ Resources:
       WebsiteConfiguration:
         ErrorDocument: index.html
         IndexDocument: index.html
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 8f56826a-d61b-43b4-bf3a-460407152daf
 
   #
   # UI BUCKET POLICY
@@ -115,24 +33,6 @@ Resources:
               - ''
               - - !GetAtt UIBucket.Arn
                 - /*
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: ecb09584-c225-40a7-9fc3-dc617105e55f
-
-  #
-  # UI SSL CERTIFICATE
-  #
-  UICertificate:
-    Type: 'AWS::CertificateManager::Certificate'
-    Properties:
-      DomainName: scheduler.surc.dev
-      ValidationMethod: DNS
-      DomainValidationOptions:
-        - DomainName: scheduler.surc.dev
-          ValidationDomain: surc.dev
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 98ab6deb-1bd5-4046-b64e-52d11af0a3a9
 
   #
   # UI CLOUDFRONT DISTRIBUTION
@@ -179,12 +79,9 @@ Resources:
             Id: s3-scheduler
         PriceClass: PriceClass_100
         ViewerCertificate:
-          AcmCertificateArn: !Ref UICertificate
+          AcmCertificateArn: !Ref SslCertificateArn
           MinimumProtocolVersion: TLSv1.2_2019
           SslSupportMethod: sni-only
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 204d0e0d-f9c4-48a0-baf2-c0cca62698c4
 
   #
   # PIPELINE ARTIFACT BUCKET
@@ -196,9 +93,6 @@ Resources:
       BucketName: scheduler-pipeline-artifacts
       VersioningConfiguration:
         Status: Enabled
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 0d931a1e-3af9-4323-9477-afa5d54cf3f9
 
   #
   # PIPELINE ARTIFACT BUCKET POLICY
@@ -221,9 +115,6 @@ Resources:
               - - !GetAtt PipelineArtifactBucket.Arn
                 - /*
             Effect: Allow
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 8d8ae8a6-00d6-49f5-9054-581f977efeb4
 
   #
   # PIPELINE IAM ROLE
@@ -276,9 +167,6 @@ Resources:
                   - codebuild:BatchGetBuildBatches
                   - codebuild:StartBuildBatch
                 Resource: '*'
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 3f793397-123e-40a5-a07d-13e1b6b52adf
 
   #
   # CODEBUILD ROLE
@@ -367,9 +255,6 @@ Resources:
                       - !Ref AWS::AccountId
                       - :distribution/
                       - !Ref UICloudFrontDistro
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: 3f793397-123e-40a5-a07d-13e1b6b52adf
 
 
   #
@@ -451,9 +336,6 @@ Resources:
               OutputArtifacts:
                 - Name: CodeBuildOutput
       RestartExecutionOnUpdate: true
-    Metadata:
-      'AWS::CloudFormation::Designer':
-        id: d40f2276-053d-4785-a3ae-34871a6a5245
 
 #
 # OUTPUTS
@@ -481,4 +363,7 @@ Outputs:
 Parameters:
   GithubConnectionArn:
     Description: Github Connection ARN
+    Type: String
+  SslCertificateArn:
+    Description: ACM SSL Certificate ARN
     Type: String
