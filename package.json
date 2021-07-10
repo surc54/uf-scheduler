@@ -1,28 +1,15 @@
 {
-  "name": "scheduler",
+  "name": "uf-scheduler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/styles": "^4.10.0",
     "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.2.2",
+    "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/react-router-dom": "^5.1.6",
-    "autoprefixer": "^9.8.6",
-    "clsx": "^1.1.1",
-    "framer-motion": "^2.9.4",
-    "history": "^4.10.1",
-    "node-sass": "^4.14.1",
-    "postcss": "^7.0.35",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "npm:surc-react-scripts@^4.0.1",
-    "react-transition-group": "^4.4.1",
-    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.1",
-    "typescript": "^4.1.2",
-    "web-vitals": "^0.2.4"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -41,9 +28,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
   }
 }
